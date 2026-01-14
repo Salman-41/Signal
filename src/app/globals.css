@@ -1,26 +1,285 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================
+   SIGNAL - Trend Intelligence Platform
+   Premium Editorial Design System
+   ============================================ */
+
+/* Custom CSS Variables */
+@theme {
+  /* Colors - Stone-based palette with category accents */
+  --color-signal-economic: #d97706;
+  --color-signal-climate: #059669;
+  --color-signal-tech: #7c3aed;
+  --color-signal-social: #e11d48;
+
+  /* Typography Scale */
+  --font-display: var(--font-family-display, system-ui);
+  --font-body: var(--font-family-body, system-ui);
+  --font-mono: var(--font-family-mono, monospace);
+
+  /* Spacing */
+  --spacing-section: 8rem;
+  --spacing-section-mobile: 4rem;
+
+  /* Transitions */
+  --transition-fast: 150ms;
+  --transition-base: 300ms;
+  --transition-slow: 500ms;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base Styles */
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+  background-color: #ffffff;
+  color: #1c1917;
+  line-height: 1.6;
+}
+
+/* Selection */
+::selection {
+  background-color: #78716c;
+  color: #ffffff;
+}
+
+/* Focus States */
+:focus-visible {
+  outline: 2px solid #78716c;
+  outline-offset: 2px;
+}
+
+/* Typography Overrides */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* Mono/Data Text */
+.font-mono,
+[class*="tabular-nums"] {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-feature-settings: "tnum" on, "lnum" on;
+}
+
+/* Smooth Scroll Wrapper (Lenis) */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fafaf9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d6d3d1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a29e;
+}
+
+/* Animation Utilities */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.4s ease-out forwards;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+/* Stagger Animation Delays */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+/* Signal Category Colors */
+.signal-economic {
+  --signal-color: var(--color-signal-economic);
+}
+
+.signal-climate {
+  --signal-color: var(--color-signal-climate);
+}
+
+.signal-tech {
+  --signal-color: var(--color-signal-tech);
+}
+
+.signal-social {
+  --signal-color: var(--color-signal-social);
+}
+
+/* Chart Animation Base */
+.chart-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw-path 1.5s ease-out forwards;
+}
+
+@keyframes draw-path {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Button & Interactive States */
+button, a {
+  transition: all var(--transition-base) ease;
+}
+
+button:active, a:active {
+  transform: scale(0.98);
+}
+
+/* Card Hover Effects */
+.card-hover {
+  transition: transform var(--transition-base) ease, box-shadow var(--transition-base) ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+}
+
+/* Gradient Overlays */
+.gradient-fade-b {
+  background: linear-gradient(to bottom, transparent 0%, white 100%);
+}
+
+.gradient-fade-t {
+  background: linear-gradient(to top, transparent 0%, white 100%);
+}
+
+/* Noise Texture Overlay */
+.noise-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Grid Pattern Background */
+.grid-pattern {
+  background-image: radial-gradient(circle at 1px 1px, #d6d3d1 1px, transparent 0);
+  background-size: 40px 40px;
+}
+
+/* Prose Styles for Interpretations */
+.prose-signal {
+  color: #57534e;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+.prose-signal strong {
+  color: #1c1917;
+  font-weight: 500;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  
+  nav, footer, .no-print {
+    display: none !important;
+  }
 }
