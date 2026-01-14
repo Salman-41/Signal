@@ -46,7 +46,7 @@ export function Navigation({ className }: NavigationProps) {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
           isScrolled
-            ? "bg-[#f9fafb]/80 backdrop-blur-lg border-b border-[#cbd5e1]/50"
+            ? "bg-[#f9fafb]/80 backdrop-blur-lg shadow-sm"
             : "bg-transparent",
           isHidden && "-translate-y-full",
           className

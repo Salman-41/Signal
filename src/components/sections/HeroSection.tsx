@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/layout/Section";
 import {
@@ -11,7 +11,7 @@ import {
 } from "@/components/layout/Typography";
 import { Signal } from "@/lib/signals/types";
 import { formatPercent } from "@/lib/utils";
-import { TrendingUp, TrendingDown, Minus, ArrowDown } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, ArrowDown, Search, ShieldCheck, Zap, Server } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -25,50 +25,140 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ signals, className }: HeroSectionProps) {
-  const heroRef = useRef<HTMLElement>(null);
-  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
+    const heroRef = useRef<HTMLElement>(null);
+    const scrollIndicatorRef = useRef<HTMLDivElement>(null);
+    const watermarkRef1 = useRef<HTMLDivElement>(null);
+    const watermarkRef2 = useRef<HTMLDivElement>(null);
+    const glowRef = useRef<HTMLDivElement>(null);
 
-  // Pick top 3 signals for different categories
-  const featuredSignals = [
-    signals.find(s => s.id === "temp-anomaly") || signals[0],
-    signals.find(s => s.id === "inflation-cpi") || signals[1],
-    signals.find(s => s.id === "ai-adoption") || signals[7],
-  ].filter(Boolean);
+    // Picker for top 3 signals
+    const featuredSignals = [
+        signals.find(s => s.id === "temp-anomaly") || signals[0],
+        signals.find(s => s.id === "inflation-cpi") || signals[1],
+        signals.find(s => s.id === "ai-adoption") || signals[7],
+    ].filter(Boolean);
 
-  useEffect(() => {
-    if (!heroRef.current) return;
+    // Live Monitor State
+    const [metrics, setMetrics] = useState({
+        signals: 124502,
+        integrity: 100.0,
+        speed: 12,
+        nodes: 8
+    });
 
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+    const [logs, setLogs] = useState<string[]>([
+        "INGESTING_FRED_CORE_CPI",
+        "POLLING_NOAA_THERMAL_SCAN",
+        "VERIFYING_NASA_EARTH_OBS"
+    ]);
 
-      // Staggered enter animation
-      tl.fromTo(
-        ".hero-animate-text",
-        { x: -40, opacity: 0 },
-        { x: 0, opacity: 1, duration: 1.2, stagger: 0.15, delay: 0.5 }
-      );
+    useEffect(() => {
+        const dataSources = [
+            "INGESTING_FRED_CPI", "POLLING_NOAA_THERMAL", "NASA_OBS_SYNC", 
+            "CRYPTO_LIQUIDITY_SCAN", "MARKET_SENTIMENT_CORE", "AI_ADOPTION_POLL",
+            "REUTERS_GLOBAL_HEADLINE", "WORLD_BANK_INDICATOR", "UN_CLIMATE_VERIFY"
+        ];
 
-      tl.fromTo(
-        ".hero-animate-card",
-        { x: 40, opacity: 0 },
-        { x: 0, opacity: 1, duration: 1.2, stagger: 0.2, delay: 0.8 },
-        "-=0.8"
-      );
+        const interval = setInterval(() => {
+            setMetrics(prev => ({
+                signals: prev.signals + Math.floor(Math.random() * 5),
+                integrity: +(99.9 + Math.random() * 0.1).toFixed(2),
+                speed: 10 + Math.floor(Math.random() * 5),
+                nodes: prev.nodes
+            }));
 
-      // Scroll indicator float
-      if (scrollIndicatorRef.current) {
-        gsap.to(scrollIndicatorRef.current, {
-          y: 8,
-          duration: 1.5,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-      }
-    }, heroRef);
+            setLogs(prev => {
+                const next = [...prev, dataSources[Math.floor(Math.random() * dataSources.length)]];
+                return next.slice(-1); // Only keep the single latest log for compact view
+            });
+        }, 2000);
+        return () => clearInterval(interval);
+    }, []);
 
-    return () => ctx.revert();
-  }, []);
+    useEffect(() => {
+        if (!heroRef.current) return;
+
+        const ctx = gsap.context(() => {
+            const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+
+            // Staggered enter animation
+            tl.fromTo(
+                ".hero-animate-text",
+                { x: -40, opacity: 0 },
+                { x: 0, opacity: 1, duration: 1.2, stagger: 0.15, delay: 0.5 }
+            );
+
+            tl.fromTo(
+                ".hero-animate-card",
+                { x: 40, opacity: 0 },
+                { x: 0, opacity: 1, duration: 1.2, stagger: 0.2, delay: 0.8 },
+                "-=0.8"
+            );
+
+            // Mouse parallax effect
+            const handleMouseMove = (e: MouseEvent) => {
+                const { clientX, clientY } = e;
+                const xPos = (clientX / window.innerWidth - 0.5) * 2;
+                const yPos = (clientY / window.innerHeight - 0.5) * 2;
+
+                if (watermarkRef1.current) {
+                    gsap.to(watermarkRef1.current, {
+                        x: xPos * 40,
+                        y: yPos * 30,
+                        duration: 1.5,
+                        ease: "power2.out",
+                    });
+                }
+                if (watermarkRef2.current) {
+                    gsap.to(watermarkRef2.current, {
+                        x: xPos * -40,
+                        y: yPos * -30,
+                        duration: 1.5,
+                        ease: "power2.out",
+                    });
+                }
+                if (glowRef.current) {
+                    gsap.to(glowRef.current, {
+                        left: clientX,
+                        top: clientY,
+                        duration: 2,
+                        ease: "power3.out",
+                    });
+                }
+            };
+
+            // Scroll Parallax for Background Elements
+            gsap.to(".hero-bg-parallax", {
+                y: (i, target) => {
+                    const speed = target.getAttribute("data-speed") || 0.1;
+                    return window.innerHeight * speed;
+                },
+                ease: "none",
+                scrollTrigger: {
+                    trigger: heroRef.current,
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+
+            // Scroll indicator float
+            if (scrollIndicatorRef.current) {
+                gsap.to(scrollIndicatorRef.current, {
+                    y: 8,
+                    duration: 1.5,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut",
+                });
+            }
+
+            window.addEventListener("mousemove", handleMouseMove);
+            return () => window.removeEventListener("mousemove", handleMouseMove);
+        }, heroRef);
+
+        return () => ctx.revert();
+    }, []);
 
   return (
     <section
@@ -80,22 +170,42 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
     >
       {/* Background patterns and Image */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Main Background Image - Blended */}
+        {/* Main Background Image - Blended with Scroll Parallax */}
         <div 
-          className="absolute inset-0 opacity-20 hover:opacity-30 transition-opacity duration-700"
+          className="hero-bg-parallax absolute inset-0 opacity-20 hover:opacity-30 transition-opacity duration-700 pointer-events-none"
+          data-speed="0.2"
           style={{
             backgroundImage: `url('/hero-bg.png')`,
-            backgroundSize: 'cover',
+            backgroundSize: '110% 110%',
             backgroundPosition: 'center',
           }}
         />
         
-        {/* Large Typographic Watermark */}
-        <div className="hero-animate-text absolute top-[18%] left-1/2 -translate-x-1/2 text-[12vw] font-black text-[#0f172a]/[0.012] select-none tracking-tighter uppercase whitespace-nowrap pointer-events-none transition-transform duration-[2s] group-hover:scale-[1.02]">
+        {/* Large Typographic Watermark with Mouse & Scroll Parallax */}
+        <div 
+          ref={watermarkRef1}
+          className="hero-animate-text hero-bg-parallax absolute top-[18%] left-1/2 -translate-x-1/2 text-[12vw] font-black text-[#0f172a]/[0.012] select-none tracking-tighter uppercase whitespace-nowrap pointer-events-none transition-transform duration-[2s] group-hover:scale-[1.02]"
+          data-speed="0.1"
+        >
           Quantitative
         </div>
-        <div className="hero-animate-text absolute bottom-[10%] left-1/2 -translate-x-1/2 text-[12vw] font-black text-[#0f172a]/[0.012] select-none tracking-tighter uppercase whitespace-nowrap pointer-events-none transition-transform duration-[2s] group-hover:scale-[0.98]">
+        <div 
+          ref={watermarkRef2}
+          className="hero-animate-text hero-bg-parallax absolute bottom-[10%] left-1/2 -translate-x-1/2 text-[12vw] font-black text-[#0f172a]/[0.012] select-none tracking-tighter uppercase whitespace-nowrap pointer-events-none transition-transform duration-[2s] group-hover:scale-[0.98]"
+          data-speed="-0.1"
+        >
           Intelligence
+        </div>
+
+        {/* Floating Technical Markers - Drifting Data Points */}
+        <div className="absolute top-[25%] left-[15%] text-[9px] font-mono text-[#64748b]/20 tracking-widest animate-pulse-soft hidden 2xl:block">
+          SYS_PING: 0.04ms
+        </div>
+        <div className="absolute top-[75%] right-[20%] text-[9px] font-mono text-[#64748b]/20 tracking-widest animate-pulse-soft hidden 2xl:block" style={{ animationDelay: '1s' }}>
+          GEOSPATIAL_SYNC: [OK]
+        </div>
+        <div className="absolute bottom-[20%] left-[30%] text-[9px] font-mono text-[#e63946]/10 tracking-widest animate-pulse-soft hidden 2xl:block" style={{ animationDelay: '1.5s' }}>
+          PLATFORM_V4_SECURED
         </div>
 
         {/* Secondary Editorial Watermarks */}
@@ -106,35 +216,51 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
           Global Feed
         </div>
 
-        {/* Measurement Grid Overlays */}
+        {/* Measurement Grid Overlays - Double Layered for Depth */}
         <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
           style={{
             backgroundImage: `linear-gradient(to right, #64748b 1px, transparent 1px), linear-gradient(to bottom, #64748b 1px, transparent 1px)`,
-            backgroundSize: '100px 100px'
+            backgroundSize: '120px 120px'
+          }}
+        />
+        <div className="absolute inset-0 opacity-[0.01] pointer-events-none"
+          style={{
+            backgroundImage: `linear-gradient(to right, #e63946 1px, transparent 1px), linear-gradient(to bottom, #e63946 1px, transparent 1px)`,
+            backgroundSize: '40px 40px',
+            backgroundPosition: '20px 20px'
           }}
         />
 
-        {/* Geometric Corner Brackets */}
-        <div className="absolute top-12 left-12 w-12 h-12 border-t border-l border-[#64748b]/10 hidden xl:block" />
-        <div className="absolute top-12 right-12 w-12 h-12 border-t border-r border-[#64748b]/10 hidden xl:block" />
-        <div className="absolute bottom-12 left-12 w-12 h-12 border-b border-l border-[#64748b]/10 hidden xl:block" />
-        <div className="absolute bottom-12 right-12 w-12 h-12 border-b border-r border-[#64748b]/10 hidden xl:block" />
-
         {/* System Meta Watermarks - Monospaced */}
-        <div className="absolute bottom-24 left-12 text-[10px] font-mono text-[#64748b]/20 tracking-[0.3em] uppercase hidden 2xl:block -rotate-90 origin-left">
+        <div className="absolute bottom-24 left-12 text-[10px] font-mono text-[#64748b]/30 tracking-[0.3em] uppercase hidden 2xl:block -rotate-90 origin-left">
           [ 52.3676° N, 4.9041° E ]
         </div>
-        <div className="absolute top-24 right-12 text-[10px] font-mono text-[#64748b]/20 tracking-[0.3em] uppercase hidden 2xl:block rotate-90 origin-right">
+        <div className="absolute top-24 right-12 text-[10px] font-mono text-[#64748b]/30 tracking-[0.3em] uppercase hidden 2xl:block rotate-90 origin-right">
           SIGNAL_STATUS_STABLE_V4.2
         </div>
 
         {/* Overlay Gradient to soften it */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#f9fafb]/80 via-transparent to-[#f9fafb]/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#f9fafb]/90 via-transparent to-[#f9fafb]/95" />
 
 
 
         {/* Subtle red glow from the image concept */}
-        <div className="absolute top-0 left-1/2 w-[500px] h-[500px] bg-[#e63946]/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute top-0 left-1/2 w-[500px] h-[500px] bg-[#e63946]/10 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
+        
+        {/* Dynamic Atmospheric Glow (Mouse Following) */}
+        <div 
+          ref={glowRef}
+          className="absolute w-[900px] h-[900px] bg-[#e63946]/[0.06] rounded-full blur-[180px] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-0 lg:opacity-100 mix-blend-multiply"
+          style={{ left: '50%', top: '50%' }}
+        />
+
+        {/* Center Vertical Axis Line */}
+        <div className="absolute top-0 left-1/2 w-px h-full bg-gradient-to-b from-transparent via-[#64748b]/20 to-transparent pointer-events-none" />
+
+        {/* Kinetic Scan Line */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+          <div className="absolute top-0 left-0 w-full h-[15vh] bg-gradient-to-b from-transparent via-[#e63946]/10 to-transparent animate-marquee-vertical" />
+        </div>
       </div>
 
       <Container className="relative z-10">
@@ -166,20 +292,50 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
               </Text>
             </div>
 
-            {/* CTA */}
-            <div className="hero-animate-text relative flex flex-wrap items-center gap-6 pt-4">
-              {/* Subtle Tech Watermark for CTA */}
-              <div className="absolute -top-4 left-0 text-[8px] font-mono text-[#64748b]/30 tracking-[0.4em] uppercase">
-                Platform_Protocol_V4
-              </div>
+            {/* Compact Live Monitor (Two Lines) */}
+            <div className="hero-animate-text relative w-full max-w-lg pt-4">
+              <div className="bg-white/40 backdrop-blur-xl border border-[#cbd5e1]/40 rounded-2xl p-4 shadow-xl overflow-hidden relative group">
+                {/* Metrics Line */}
+                <div className="flex items-center justify-between gap-6 mb-3 pb-3 border-b border-[#cbd5e1]/30">
+                  <div className="flex items-center gap-4">
+                    <div className="flex flex-col">
+                      <span className="text-[7px] font-bold text-[#64748b] uppercase tracking-tighter">Live_Signals</span>
+                      <span className="text-xs font-mono font-bold text-[#0f172a] tabular-nums">
+                        {metrics.signals.toLocaleString()}
+                      </span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-[7px] font-bold text-[#64748b] uppercase tracking-tighter">Integrity</span>
+                      <span className="text-xs font-mono font-bold text-emerald-600 tabular-nums">
+                        {metrics.integrity}%
+                      </span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-[7px] font-bold text-[#64748b] uppercase tracking-tighter">Latency</span>
+                      <span className="text-xs font-mono font-bold text-[#0f172a] tabular-nums">
+                        {metrics.speed}ms
+                      </span>
+                    </div>
+                  </div>
+                  <div className="px-2 py-1 rounded bg-emerald-500/10 text-emerald-600 text-[8px] font-bold animate-pulse uppercase tracking-widest leading-none">
+                    Active
+                  </div>
+                </div>
 
-              <button className="group relative px-8 py-4 bg-[#0f172a] text-white rounded-2xl font-bold overflow-hidden transition-all hover:scale-[1.02] hover:shadow-2xl active:scale-[0.98]">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#e63946] to-[#0f172a] opacity-0 group-hover:opacity-10 transition-opacity" />
-                <span className="relative flex items-center gap-2">
-                  Launch Platform
-                  <ArrowDown className="w-4 h-4 -rotate-[135deg] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </span>
-              </button>
+                {/* Log Line */}
+                <div className="flex items-center gap-3">
+                  <span className="text-[7px] font-bold text-[#64748b] uppercase shrink-0">Feed_Stream</span>
+                  <div className="flex-1 bg-[#0f172a] rounded-lg px-3 py-1.5 font-mono text-[9px] text-emerald-500/80 flex items-center overflow-hidden h-7">
+                    {logs.map((log, i) => (
+                      <div key={i} className="flex items-center gap-2 animate-in slide-in-from-bottom-1 duration-300 w-full">
+                        <span className="opacity-40">{">"}</span>
+                        <span className="truncate">{log}</span>
+                        <span className="ml-auto opacity-40 text-[7px]">SYNC_OK</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
