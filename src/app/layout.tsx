@@ -57,7 +57,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-white text-stone-900 antialiased">
+      <body className="bg-[#f1faee] text-[#1d3557] antialiased">
         <SmoothScrollProvider>
           <Navigation />
           <main>{children}</main>

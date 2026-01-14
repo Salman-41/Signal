@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Section, Container, Grid } from "@/components/layout/Section";
 import { Heading, Text, Label } from "@/components/layout/Typography";
-import { ExternalLink, Database, RefreshCw, AlertTriangle } from "lucide-react";
+import { ExternalLink, Database, RefreshCw, AlertTriangle, Zap, Search, Check } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -120,31 +120,58 @@ export function MethodologySection({ className }: MethodologySectionProps) {
           <Label variant="muted" className="text-stone-500 mb-4">
             Methodology
           </Label>
-          <Heading as="h2" size="section" className="text-white">
-            How we collect and present data
-          </Heading>
-          <Text size="lg" className="mt-4 max-w-2xl text-stone-400">
-            Transparency is fundamental. Here&apos;s exactly where our data
-            comes from and how we process it.
-          </Text>
+            <Heading as="h2" size="section" className="text-[#1d3557]">
+              How we detect signals
+            </Heading>
+            <Text size="lg" className="text-[#457b9d] mt-4 max-w-2xl mx-auto">
+              Our platform processes raw public data to identify significant
+              shifts before they become part of the dominant narrative.
+            </Text>
         </div>
 
         {/* Principles */}
         <Grid cols={3} className="mb-16">
-          {principles.map((principle, index) => (
-            <div
-              key={index}
-              className="methodology-item p-6 rounded-xl bg-stone-900/50 border border-stone-800"
-            >
-              <principle.icon className="w-8 h-8 text-stone-500 mb-4" />
-              <h3 className="text-lg font-medium text-white mb-2">
-                {principle.title}
-              </h3>
-              <Text size="sm" className="text-stone-400">
-                {principle.description}
-              </Text>
+          <div className="p-6 rounded-2xl bg-[#a8dadc]/10 border border-[#a8dadc]/30">
+            <div className="w-12 h-12 rounded-xl bg-[#1d3557] flex items-center justify-center text-[#f1faee] mb-6">
+              <Database className="w-6 h-6" />
             </div>
-          ))}
+            <h3 className="text-xl font-medium text-[#1d3557] mb-3">
+              Broad Ingestion
+            </h3>
+            <Text size="sm" className="text-[#457b9d]">
+              We pull data from over 50 public APIs, including federal
+              economic agencies, satellite climate sensors, and technology
+              repositories.
+            </Text>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-[#a8dadc]/10 border border-[#a8dadc]/30">
+            <div className="w-12 h-12 rounded-xl bg-[#e63946] flex items-center justify-center text-[#f1faee] mb-6">
+              <Zap className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-medium text-[#1d3557] mb-3">
+              Anomaly Detection
+            </h3>
+            <Text size="sm" className="text-[#457b9d]">
+              Our proprietary algorithms monitor for statistical
+              anomalies—values that deviate more than 2.5 standard
+              deviations from the 30-day mean.
+            </Text>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-[#a8dadc]/10 border border-[#a8dadc]/30">
+            <div className="w-12 h-12 rounded-xl bg-[#457b9d] flex items-center justify-center text-[#f1faee] mb-6">
+              <Search className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-medium text-[#1d3557] mb-3">
+              Signal Verification
+            </h3>
+            <Text size="sm" className="text-[#457b9d]">
+              Not every outlier is a signal. We correlate data across
+              different indicators to verify the strength and permanence
+              of a trend.
+            </Text>
+          </div>
         </Grid>
 
         {/* Data sources */}

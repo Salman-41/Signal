@@ -7,11 +7,18 @@
 
 /* Custom CSS Variables */
 @theme {
-  /* Colors - Stone-based palette with category accents */
-  --color-signal-economic: #d97706;
-  --color-signal-climate: #059669;
-  --color-signal-tech: #7c3aed;
-  --color-signal-social: #e11d48;
+  /* Colors - Oceanic Red & Steel Palette */
+  --color-primary: #e63946;
+  --color-mint: #f1faee;
+  --color-sky: #a8dadc;
+  --color-steel: #457b9d;
+  --color-prussian: #1d3557;
+
+  /* Signal category colors using new palette */
+  --color-signal-economic: #1d3557;
+  --color-signal-climate: #457b9d;
+  --color-signal-tech: #e63946;
+  --color-signal-social: #a8dadc;
 
   /* Typography Scale */
   --font-display: var(--font-family-display, system-ui);
@@ -38,20 +45,20 @@ html {
 
 body {
   font-family: var(--font-body), system-ui, -apple-system, sans-serif;
-  background-color: #ffffff;
-  color: #1c1917;
+  background-color: #f1faee;
+  color: #1d3557;
   line-height: 1.6;
 }
 
 /* Selection */
 ::selection {
-  background-color: #78716c;
-  color: #ffffff;
+  background-color: #e63946;
+  color: #f1faee;
 }
 
 /* Focus States */
 :focus-visible {
-  outline: 2px solid #78716c;
+  outline: 2px solid #457b9d;
   outline-offset: 2px;
 }
 
@@ -98,16 +105,16 @@ html.lenis, html.lenis body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #fafaf9;
+  background: #f1faee;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d6d3d1;
+  background: #a8dadc;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a8a29e;
+  background: #457b9d;
 }
 
 /* Animation Utilities */
@@ -225,11 +232,11 @@ button:active, a:active {
 
 /* Gradient Overlays */
 .gradient-fade-b {
-  background: linear-gradient(to bottom, transparent 0%, white 100%);
+  background: linear-gradient(to bottom, transparent 0%, #f1faee 100%);
 }
 
 .gradient-fade-t {
-  background: linear-gradient(to top, transparent 0%, white 100%);
+  background: linear-gradient(to top, transparent 0%, #f1faee 100%);
 }
 
 /* Noise Texture Overlay */
@@ -244,19 +251,19 @@ button:active, a:active {
 
 /* Grid Pattern Background */
 .grid-pattern {
-  background-image: radial-gradient(circle at 1px 1px, #d6d3d1 1px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, #a8dadc 1px, transparent 0);
   background-size: 40px 40px;
 }
 
 /* Prose Styles for Interpretations */
 .prose-signal {
-  color: #57534e;
+  color: #457b9d;
   font-size: 0.9375rem;
   line-height: 1.7;
 }
 
 .prose-signal strong {
-  color: #1c1917;
+  color: #1d3557;
   font-weight: 500;
 }
 
@@ -282,4 +289,13 @@ button:active, a:active {
   nav, footer, .no-print {
     display: none !important;
   }
+}
+
+@keyframes marquee {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
+
+.animate-marquee-slow {
+  animation: marquee 30s linear infinite;
 }

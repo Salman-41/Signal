@@ -61,10 +61,10 @@ export const Section = forwardRef<HTMLElement, SectionProps>(function Section(
   }, [animate, ref]);
 
   const bgClasses = {
-    default: "bg-white",
-    muted: "bg-stone-50",
-    accent: "bg-stone-900 text-white",
-    dark: "bg-stone-950 text-white",
+    default: "bg-[#f1faee]",
+    muted: "bg-[#a8dadc]/20",
+    accent: "bg-[#457b9d] text-[#f1faee]",
+    dark: "bg-[#1d3557] text-[#f1faee]",
   };
 
   return (
@@ -92,7 +92,7 @@ interface ContainerProps {
 export function Container({
   children,
   className,
-  size = "default",
+  size = "full",
 }: ContainerProps) {
   const sizeClasses = {
     default: "max-w-6xl",

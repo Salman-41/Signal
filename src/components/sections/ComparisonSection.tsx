@@ -65,12 +65,12 @@ export function ComparisonSection({
           <Label variant="accent" className="mb-4">
             Comparisons
           </Label>
-          <Heading as="h2" size="section" className="text-stone-900">
-            Signals in context
+          <Heading as="h2" size="section" className="text-[#1d3557]">
+            Signal Correlations
           </Heading>
-          <Text size="lg" muted className="mt-4 max-w-2xl">
-            Relationships between different indicators. Where do trends align,
-            and where do they diverge?
+          <Text size="lg" className="text-[#457b9d] mt-4 max-w-2xl">
+            Trends rarely exist in a vacuum. We track how different signals
+            move in relation to each other.
           </Text>
         </div>
 

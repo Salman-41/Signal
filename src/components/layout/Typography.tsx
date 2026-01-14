@@ -18,12 +18,12 @@ export function Heading({
 }: HeadingProps) {
   const sizeClasses = {
     display:
-      "text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[0.95]",
-    hero: "text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1]",
+      "text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[0.95] text-[#1d3557]",
+    hero: "text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1] text-[#1d3557]",
     section:
-      "text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.1]",
-    subsection: "text-2xl md:text-3xl font-medium tracking-tight leading-[1.2]",
-    card: "text-xl md:text-2xl font-medium tracking-tight leading-[1.2]",
+      "text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.1] text-[#1d3557]",
+    subsection: "text-2xl md:text-3xl font-medium tracking-tight leading-[1.2] text-[#1d3557]",
+    card: "text-xl md:text-2xl font-medium tracking-tight leading-[1.2] text-[#1d3557]",
   };
 
   return (
@@ -49,18 +49,20 @@ export function Text({
   mono = false,
 }: TextProps) {
   const sizeClasses = {
-    sm: "text-sm leading-relaxed",
-    base: "text-base leading-relaxed",
-    lg: "text-lg leading-relaxed",
-    xl: "text-xl leading-relaxed",
+    sm: "text-sm",
+    base: "text-base",
+    lg: "text-lg",
+    xl: "text-xl",
   };
 
   return (
     <p
       className={cn(
         sizeClasses[size],
-        muted && "text-stone-500",
+        muted && "text-[#457b9d]",
+        !muted && "text-[#1d3557]",
         mono && "font-mono",
+        "leading-relaxed", // Added back leading-relaxed as it was removed in the proposed change
         className
       )}
     >
@@ -81,9 +83,9 @@ export function Label({
   variant = "default",
 }: LabelProps) {
   const variantClasses = {
-    default: "text-stone-900",
-    accent: "text-stone-600",
-    muted: "text-stone-400",
+    default: "text-[#1d3557] bg-[#a8dadc]/10",
+    muted: "text-[#457b9d] bg-[#a8dadc]/5",
+    accent: "text-[#e63946] bg-[#e63946]/10",
   };
 
   return (

@@ -13,16 +13,16 @@ export function Footer({ className }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className={cn("bg-stone-950 text-white py-16", className)}>
+    <footer className={cn("bg-[#1d3557] text-[#f1faee] py-16", className)}>
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <Activity className="w-6 h-6" />
+              <Activity className="w-6 h-6 text-[#e63946]" />
               <span className="font-medium text-lg tracking-tight">Signal</span>
             </div>
-            <p className="text-stone-400 max-w-md">
+            <p className="text-[#f1faee]/70 max-w-md">
               A trend intelligence platform helping you understand what is
               changing, where, and how fast. Built with free, public APIs and
               client-side processing.
@@ -31,78 +31,51 @@ export function Footer({ className }: FooterProps) {
 
           {/* Signals */}
           <div>
-            <h4 className="font-medium text-white mb-4">Signals</h4>
+            <h4 className="font-medium text-[#a8dadc] mb-4 uppercase tracking-wider text-xs">Signals</h4>
             <ul className="space-y-2">
-              <li>
-                <a
-                  href="#live-signals"
-                  className="text-stone-400 hover:text-white transition-colors"
-                >
-                  Economic
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#live-signals"
-                  className="text-stone-400 hover:text-white transition-colors"
-                >
-                  Climate
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#live-signals"
-                  className="text-stone-400 hover:text-white transition-colors"
-                >
-                  Technology
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#live-signals"
-                  className="text-stone-400 hover:text-white transition-colors"
-                >
-                  Public Interest
-                </a>
-              </li>
+              {[
+                "Economic",
+                "Climate",
+                "Technology",
+                "Public Interest",
+              ].map((label) => (
+                <li key={label}>
+                  <a
+                    href="#live-signals"
+                    className="text-[#f1faee]/70 hover:text-[#f1faee] transition-colors"
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* About */}
           <div>
-            <h4 className="font-medium text-white mb-4">About</h4>
+            <h4 className="font-medium text-[#a8dadc] mb-4 uppercase tracking-wider text-xs">About</h4>
             <ul className="space-y-2">
-              <li>
-                <a
-                  href="#methodology"
-                  className="text-stone-400 hover:text-white transition-colors"
-                >
-                  Methodology
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#methodology"
-                  className="text-stone-400 hover:text-white transition-colors"
-                >
-                  Data Sources
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-stone-400 hover:text-white transition-colors"
-                >
-                  Privacy Policy
-                </a>
-              </li>
+              {[
+                { label: "Methodology", href: "#methodology" },
+                { label: "Data Sources", href: "#methodology" },
+                { label: "Privacy Policy", href: "#" },
+              ].map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    className="text-[#f1faee]/70 hover:text-[#f1faee] transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-16 pt-8 border-t border-stone-800 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-stone-500">
+        <div className="mt-16 pt-8 border-t border-[#f1faee]/10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-[#f1faee]/50">
             © {currentYear} Signal. Open data for everyone.
           </p>
           <div className="flex items-center gap-4">
@@ -110,7 +83,7 @@ export function Footer({ className }: FooterProps) {
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-stone-500 hover:text-white transition-colors"
+              className="text-[#f1faee]/50 hover:text-[#f1faee] transition-colors"
               aria-label="GitHub"
             >
               <Github className="w-5 h-5" />
@@ -119,7 +92,7 @@ export function Footer({ className }: FooterProps) {
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-stone-500 hover:text-white transition-colors"
+              className="text-[#f1faee]/50 hover:text-[#f1faee] transition-colors"
               aria-label="Twitter"
             >
               <Twitter className="w-5 h-5" />

@@ -19,7 +19,7 @@ export default function HomePage() {
   return (
     <>
       {/* Hero - What this site detects, why signals matter */}
-      <HeroSection featuredSignal={featuredSignal} />
+      <HeroSection signals={mockSignals} />
 
       {/* Live Signals - Real-time indicator cards by category */}
       <LiveSignalsSection signals={mockSignals} />

@@ -83,7 +83,7 @@ export function LiveSignalsSection({
           <Label variant="accent" className="mb-4">
             Live Signals
           </Label>
-          <Heading as="h2" size="section" className="text-stone-900">
+          <Heading as="h2" size="section" className="text-[#1d3557]">
             What&apos;s shifting right now
           </Heading>
           <Text size="lg" muted className="mt-4 max-w-2xl">
@@ -108,18 +108,18 @@ export function LiveSignalsSection({
                     className={cn(
                       "w-2 h-2 rounded-full",
                       category === "economic"
-                        ? "bg-amber-500"
+                        ? "bg-[#1d3557]"
                         : category === "climate"
-                        ? "bg-emerald-500"
+                        ? "bg-[#457b9d]"
                         : category === "tech"
-                        ? "bg-violet-500"
-                        : "bg-rose-500"
+                        ? "bg-[#e63946]"
+                        : "bg-[#a8dadc]"
                     )}
                   />
-                  <h3 className="text-lg font-medium text-stone-900">
+                  <h3 className="text-lg font-medium text-[#1d3557]">
                     {meta.label}
                   </h3>
-                  <span className="text-sm text-stone-400">
+                  <span className="text-sm text-[#457b9d]">
                     {meta.description}
                   </span>
                 </div>

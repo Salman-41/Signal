@@ -103,25 +103,25 @@ export function SignalCard({
 
   const trendColor =
     signal.trend === "up"
-      ? "text-emerald-500"
+      ? "text-[#e63946]"
       : signal.trend === "down"
-      ? "text-rose-500"
-      : "text-stone-400";
+      ? "text-[#457b9d]"
+      : "text-[#a8dadc]";
 
   const sparklineColor =
     signal.trend === "up"
-      ? "#10b981"
+      ? "#e63946"
       : signal.trend === "down"
-      ? "#f43f5e"
-      : "#a1a1aa";
+      ? "#457b9d"
+      : "#1d3557";
 
   if (variant === "compact") {
     return (
       <div
         ref={cardRef}
         className={cn(
-          "group relative p-4 rounded-xl border border-stone-200 bg-white",
-          "hover:border-stone-300 hover:shadow-sm transition-all duration-300",
+          "group relative p-4 rounded-xl border border-[#a8dadc]/30 bg-white/50 backdrop-blur-sm",
+          "hover:border-[#e63946]/30 hover:shadow-lg transition-all duration-300",
           "cursor-pointer",
           className
         )}
@@ -134,7 +134,7 @@ export function SignalCard({
             <Label variant="muted" className={categoryMeta.color}>
               {categoryMeta.label}
             </Label>
-            <h3 className="font-medium text-stone-900 truncate mt-1">
+            <h3 className="font-medium text-[#1d3557] truncate mt-1">
               {signal.title}
             </h3>
           </div>
@@ -160,8 +160,8 @@ export function SignalCard({
       <div
         ref={cardRef}
         className={cn(
-          "group relative p-8 md:p-10 rounded-2xl border-2 border-stone-200 bg-white",
-          "hover:border-stone-300 hover:shadow-lg transition-all duration-500",
+          "group relative p-8 md:p-10 rounded-2xl border-2 border-[#a8dadc]/30 bg-white/50 backdrop-blur-sm",
+          "hover:border-[#e63946]/30 hover:shadow-2xl transition-all duration-500",
           className
         )}
         onMouseEnter={() => setIsHovered(true)}
@@ -180,10 +180,10 @@ export function SignalCard({
               className={cn(
                 "w-2 h-2 rounded-full",
                 signal.trend === "up"
-                  ? "bg-emerald-500"
+                  ? "bg-[#e63946]"
                   : signal.trend === "down"
-                  ? "bg-rose-500"
-                  : "bg-stone-400"
+                  ? "bg-[#457b9d]"
+                  : "bg-[#a8dadc]"
               )}
             />
             {categoryMeta.label}
@@ -192,7 +192,7 @@ export function SignalCard({
             href={signal.source.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-stone-400 hover:text-stone-600 transition-colors"
+            className="text-[#457b9d] hover:text-[#1d3557] transition-colors"
           >
             <ExternalLink className="w-4 h-4" />
           </a>
@@ -200,11 +200,11 @@ export function SignalCard({
 
         {/* Title and subtitle */}
         <div className="mb-6">
-          <h3 className="text-2xl md:text-3xl font-medium text-stone-900 tracking-tight">
+          <h3 className="text-2xl md:text-3xl font-medium text-[#1d3557] tracking-tight">
             {signal.title}
           </h3>
           {signal.subtitle && (
-            <p className="text-stone-500 mt-1">{signal.subtitle}</p>
+            <p className="text-[#457b9d] mt-1">{signal.subtitle}</p>
           )}
         </div>
 
@@ -213,7 +213,7 @@ export function SignalCard({
           <div>
             <DataValue size="2xl" trend={signal.trend}>
               {signal.currentValue}
-              <span className="text-2xl ml-1 text-stone-400">
+              <span className="text-2xl ml-1 text-[#457b9d]">
                 {signal.unit}
               </span>
             </DataValue>
@@ -222,7 +222,7 @@ export function SignalCard({
               <span className="text-lg font-medium tabular-nums">
                 {formatPercent(signal.changePercent)}
               </span>
-              <span className="text-stone-400 text-sm">vs previous</span>
+              <span className="text-[#a8dadc] text-sm">vs previous</span>
             </div>
           </div>
 
@@ -246,8 +246,8 @@ export function SignalCard({
         </div>
 
         {/* Interpretation */}
-        <div className="pt-6 border-t border-stone-100">
-          <Text size="sm" className="text-stone-600">
+        <div className="pt-6 border-t border-[#a8dadc]/30">
+          <Text size="sm" className="text-[#1d3557]/80">
             {signal.interpretation.whatItMeans}
           </Text>
         </div>
@@ -255,8 +255,8 @@ export function SignalCard({
         {/* Anomaly badge */}
         {signal.anomalies && signal.anomalies.length > 0 && (
           <div className="mt-4 flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium bg-amber-50 text-amber-700 rounded-full border border-amber-200">
-              <span className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium bg-[#e63946]/5 text-[#e63946] rounded-full border border-[#e63946]/20">
+              <span className="w-1.5 h-1.5 bg-[#e63946] rounded-full animate-pulse" />
               {signal.anomalies[0].description}
             </span>
           </div>
@@ -270,8 +270,8 @@ export function SignalCard({
     <div
       ref={cardRef}
       className={cn(
-        "group relative p-6 rounded-xl border border-stone-200 bg-white",
-        "hover:border-stone-300 hover:shadow-md transition-all duration-300",
+        "group relative p-6 rounded-xl border border-[#a8dadc]/30 bg-white/50 backdrop-blur-sm",
+        "hover:border-[#e63946]/30 hover:shadow-xl transition-all duration-300",
         "cursor-pointer",
         className
       )}
@@ -285,9 +285,9 @@ export function SignalCard({
           <Label variant="muted" className={categoryMeta.color}>
             {categoryMeta.label}
           </Label>
-          <h3 className="font-medium text-stone-900 mt-1">{signal.title}</h3>
+          <h3 className="font-medium text-[#1d3557] mt-1">{signal.title}</h3>
           {signal.subtitle && (
-            <p className="text-sm text-stone-400 mt-0.5">{signal.subtitle}</p>
+            <p className="text-sm text-[#457b9d] mt-0.5">{signal.subtitle}</p>
           )}
         </div>
 
@@ -314,7 +314,7 @@ export function SignalCard({
       <div className="flex items-end justify-between">
         <DataValue size="lg" trend={signal.trend}>
           {signal.currentValue}
-          <span className="text-lg ml-1 text-stone-400">{signal.unit}</span>
+          <span className="text-lg ml-1 text-[#457b9d]">{signal.unit}</span>
         </DataValue>
 
         <div className={cn("flex items-center gap-1.5", trendColor)}>
@@ -329,8 +329,8 @@ export function SignalCard({
       {signal.anomalies && signal.anomalies.length > 0 && (
         <div className="absolute top-4 right-4">
           <span className="flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#1d3557] opacity-75" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#e63946]" />
           </span>
         </div>
       )}
