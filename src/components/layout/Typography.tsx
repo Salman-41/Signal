@@ -18,12 +18,12 @@ export function Heading({
 }: HeadingProps) {
   const sizeClasses = {
     display:
-      "text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[0.95] text-[#1d3557]",
-    hero: "text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1] text-[#1d3557]",
+      "text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[0.95] text-[#0f172a]",
+    hero: "text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1] text-[#0f172a]",
     section:
-      "text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.1] text-[#1d3557]",
-    subsection: "text-2xl md:text-3xl font-medium tracking-tight leading-[1.2] text-[#1d3557]",
-    card: "text-xl md:text-2xl font-medium tracking-tight leading-[1.2] text-[#1d3557]",
+      "text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.1] text-[#0f172a]",
+    subsection: "text-2xl md:text-3xl font-medium tracking-tight leading-[1.2] text-[#0f172a]",
+    card: "text-xl md:text-2xl font-medium tracking-tight leading-[1.2] text-[#0f172a]",
   };
 
   return (
@@ -58,11 +58,10 @@ export function Text({
   return (
     <p
       className={cn(
-        sizeClasses[size],
-        muted && "text-[#457b9d]",
-        !muted && "text-[#1d3557]",
+        "font-body leading-relaxed",
+        muted ? "text-[#64748b]" : "text-[#0f172a]",
         mono && "font-mono",
-        "leading-relaxed", // Added back leading-relaxed as it was removed in the proposed change
+        sizeClasses[size],
         className
       )}
     >
@@ -83,8 +82,8 @@ export function Label({
   variant = "default",
 }: LabelProps) {
   const variantClasses = {
-    default: "text-[#1d3557] bg-[#a8dadc]/10",
-    muted: "text-[#457b9d] bg-[#a8dadc]/5",
+    default: "text-[#0f172a] bg-[#cbd5e1]/20",
+    muted: "text-[#64748b] bg-[#cbd5e1]/10",
     accent: "text-[#e63946] bg-[#e63946]/10",
   };
 
@@ -159,5 +158,28 @@ export function Annotation({ children, className }: AnnotationProps) {
       <span className="w-1.5 h-1.5 bg-amber-500 rounded-full" />
       {children}
     </span>
+  );
+}
+
+interface MetricProps {
+  label: string;
+  value: string | number;
+  unit?: string;
+  className?: string;
+}
+
+export function Metric({ label, value, unit, className }: MetricProps) {
+  return (
+    <div className={cn("flex flex-col", className)}>
+      <Label className="mb-1 text-[#64748b]">{label}</Label>
+      <div className="flex items-baseline gap-2">
+        <span className="text-3xl font-bold tracking-tighter text-[#0f172a]">
+          {value}
+        </span>
+        {unit && (
+          <span className="text-sm font-medium text-[#64748b]">{unit}</span>
+        )}
+      </div>
+    </div>
   );
 }

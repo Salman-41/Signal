@@ -105,22 +105,22 @@ export function SignalCard({
     signal.trend === "up"
       ? "text-[#e63946]"
       : signal.trend === "down"
-      ? "text-[#457b9d]"
-      : "text-[#a8dadc]";
+      ? "text-[#64748b]"
+      : "text-[#cbd5e1]";
 
   const sparklineColor =
     signal.trend === "up"
       ? "#e63946"
       : signal.trend === "down"
-      ? "#457b9d"
-      : "#1d3557";
+      ? "#64748b"
+      : "#0f172a";
 
   if (variant === "compact") {
     return (
       <div
         ref={cardRef}
         className={cn(
-          "group relative p-4 rounded-xl border border-[#a8dadc]/30 bg-white/50 backdrop-blur-sm",
+          "group relative p-4 rounded-xl border border-[#cbd5e1]/50 bg-white/50 backdrop-blur-sm",
           "hover:border-[#e63946]/30 hover:shadow-lg transition-all duration-300",
           "cursor-pointer",
           className
@@ -134,7 +134,7 @@ export function SignalCard({
             <Label variant="muted" className={categoryMeta.color}>
               {categoryMeta.label}
             </Label>
-            <h3 className="font-medium text-[#1d3557] truncate mt-1">
+            <h3 className="font-medium text-[#0f172a] truncate mt-1">
               {signal.title}
             </h3>
           </div>
@@ -160,7 +160,7 @@ export function SignalCard({
       <div
         ref={cardRef}
         className={cn(
-          "group relative p-8 md:p-10 rounded-2xl border-2 border-[#a8dadc]/30 bg-white/50 backdrop-blur-sm",
+          "group relative p-8 md:p-10 rounded-2xl border-2 border-[#cbd5e1]/50 bg-white/50 backdrop-blur-sm",
           "hover:border-[#e63946]/30 hover:shadow-2xl transition-all duration-500",
           className
         )}
@@ -192,7 +192,7 @@ export function SignalCard({
             href={signal.source.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#457b9d] hover:text-[#1d3557] transition-colors"
+            className="text-[#64748b] hover:text-[#0f172a] transition-colors"
           >
             <ExternalLink className="w-4 h-4" />
           </a>
@@ -200,11 +200,11 @@ export function SignalCard({
 
         {/* Title and subtitle */}
         <div className="mb-6">
-          <h3 className="text-2xl md:text-3xl font-medium text-[#1d3557] tracking-tight">
+          <h3 className="text-2xl md:text-3xl font-medium text-[#0f172a] tracking-tight">
             {signal.title}
           </h3>
           {signal.subtitle && (
-            <p className="text-[#457b9d] mt-1">{signal.subtitle}</p>
+            <p className="text-[#64748b] mt-1">{signal.subtitle}</p>
           )}
         </div>
 
@@ -213,7 +213,7 @@ export function SignalCard({
           <div>
             <DataValue size="2xl" trend={signal.trend}>
               {signal.currentValue}
-              <span className="text-2xl ml-1 text-[#457b9d]">
+              <span className="text-2xl ml-1 text-[#64748b]">
                 {signal.unit}
               </span>
             </DataValue>
@@ -222,7 +222,7 @@ export function SignalCard({
               <span className="text-lg font-medium tabular-nums">
                 {formatPercent(signal.changePercent)}
               </span>
-              <span className="text-[#a8dadc] text-sm">vs previous</span>
+              <span className="text-[#cbd5e1] text-sm">vs previous</span>
             </div>
           </div>
 
@@ -246,8 +246,8 @@ export function SignalCard({
         </div>
 
         {/* Interpretation */}
-        <div className="pt-6 border-t border-[#a8dadc]/30">
-          <Text size="sm" className="text-[#1d3557]/80">
+        <div className="pt-6 border-t border-[#cbd5e1]/50">
+          <Text size="sm" className="text-[#0f172a]/80">
             {signal.interpretation.whatItMeans}
           </Text>
         </div>
@@ -270,7 +270,7 @@ export function SignalCard({
     <div
       ref={cardRef}
       className={cn(
-        "group relative p-6 rounded-xl border border-[#a8dadc]/30 bg-white/50 backdrop-blur-sm",
+        "group relative p-6 rounded-xl border border-[#cbd5e1]/50 bg-white/50 backdrop-blur-sm",
         "hover:border-[#e63946]/30 hover:shadow-xl transition-all duration-300",
         "cursor-pointer",
         className
@@ -285,9 +285,9 @@ export function SignalCard({
           <Label variant="muted" className={categoryMeta.color}>
             {categoryMeta.label}
           </Label>
-          <h3 className="font-medium text-[#1d3557] mt-1">{signal.title}</h3>
+          <h3 className="font-medium text-[#0f172a] mt-1">{signal.title}</h3>
           {signal.subtitle && (
-            <p className="text-sm text-[#457b9d] mt-0.5">{signal.subtitle}</p>
+            <p className="text-sm text-[#64748b] mt-0.5">{signal.subtitle}</p>
           )}
         </div>
 
@@ -314,7 +314,7 @@ export function SignalCard({
       <div className="flex items-end justify-between">
         <DataValue size="lg" trend={signal.trend}>
           {signal.currentValue}
-          <span className="text-lg ml-1 text-[#457b9d]">{signal.unit}</span>
+          <span className="text-lg ml-1 text-[#64748b]">{signal.unit}</span>
         </DataValue>
 
         <div className={cn("flex items-center gap-1.5", trendColor)}>
@@ -329,7 +329,7 @@ export function SignalCard({
       {signal.anomalies && signal.anomalies.length > 0 && (
         <div className="absolute top-4 right-4">
           <span className="flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#1d3557] opacity-75" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0f172a] opacity-75" />
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#e63946]" />
           </span>
         </div>

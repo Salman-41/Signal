@@ -7,18 +7,18 @@
 
 /* Custom CSS Variables */
 @theme {
-  /* Colors - Oceanic Red & Steel Palette */
+  /* Colors - Refined Editorial Palette */
   --color-primary: #e63946;
-  --color-mint: #f1faee;
-  --color-sky: #a8dadc;
-  --color-steel: #457b9d;
-  --color-prussian: #1d3557;
+  --color-mint: #f9fafb;     /* Neutral Paper */
+  --color-sky: #e2e8f0;      /* Clean Borders */
+  --color-steel: #64748b;    /* Metadata/Slate */
+  --color-prussian: #0f172a; /* Deep Obsidian */
 
-  /* Signal category colors using new palette */
-  --color-signal-economic: #1d3557;
-  --color-signal-climate: #457b9d;
+  /* Signal category colors */
+  --color-signal-economic: #0f172a;
+  --color-signal-climate: #334155;
   --color-signal-tech: #e63946;
-  --color-signal-social: #a8dadc;
+  --color-signal-social: #94a3b8;
 
   /* Typography Scale */
   --font-display: var(--font-family-display, system-ui);
@@ -45,8 +45,8 @@ html {
 
 body {
   font-family: var(--font-body), system-ui, -apple-system, sans-serif;
-  background-color: #f1faee;
-  color: #1d3557;
+  background-color: #f9fafb;
+  color: #0f172a;
   line-height: 1.6;
 }
 
@@ -58,7 +58,7 @@ body {
 
 /* Focus States */
 :focus-visible {
-  outline: 2px solid #457b9d;
+  outline: 2px solid #64748b;
   outline-offset: 2px;
 }
 
@@ -105,16 +105,16 @@ html.lenis, html.lenis body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1faee;
+  background: #f9fafb;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #a8dadc;
+  background: #cbd5e1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #457b9d;
+  background: #94a3b8;
 }
 
 /* Animation Utilities */
@@ -232,11 +232,11 @@ button:active, a:active {
 
 /* Gradient Overlays */
 .gradient-fade-b {
-  background: linear-gradient(to bottom, transparent 0%, #f1faee 100%);
+  background: linear-gradient(to bottom, transparent 0%, #f9fafb 100%);
 }
 
 .gradient-fade-t {
-  background: linear-gradient(to top, transparent 0%, #f1faee 100%);
+  background: linear-gradient(to top, transparent 0%, #f9fafb 100%);
 }
 
 /* Noise Texture Overlay */
@@ -251,19 +251,19 @@ button:active, a:active {
 
 /* Grid Pattern Background */
 .grid-pattern {
-  background-image: radial-gradient(circle at 1px 1px, #a8dadc 1px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, #cbd5e1 1px, transparent 0);
   background-size: 40px 40px;
 }
 
 /* Prose Styles for Interpretations */
 .prose-signal {
-  color: #457b9d;
+  color: #475569;
   font-size: 0.9375rem;
   line-height: 1.7;
 }
 
 .prose-signal strong {
-  color: #1d3557;
+  color: #0f172a;
   font-weight: 500;
 }
 

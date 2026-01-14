@@ -41,8 +41,8 @@ export function Footer({ className }: FooterProps) {
               ].map((label) => (
                 <li key={label}>
                   <a
-                    href="#live-signals"
-                    className="text-[#f1faee]/70 hover:text-[#f1faee] transition-colors"
+                    href="#"
+                    className="text-[#94a3b8] hover:text-white transition-colors"
                   >
                     {label}
                   </a>
@@ -63,7 +63,7 @@ export function Footer({ className }: FooterProps) {
                 <li key={item.label}>
                   <a
                     href={item.href}
-                    className="text-[#f1faee]/70 hover:text-[#f1faee] transition-colors"
+                    className="text-white/70 hover:text-white transition-colors"
                   >
                     {item.label}
                   </a>
@@ -74,8 +74,8 @@ export function Footer({ className }: FooterProps) {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-16 pt-8 border-t border-[#f1faee]/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-[#f1faee]/50">
+        <div className="mt-16 pt-8 border-t border-[#cbd5e1]/10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-white/50">
             © {currentYear} Signal. Open data for everyone.
           </p>
           <div className="flex items-center gap-4">

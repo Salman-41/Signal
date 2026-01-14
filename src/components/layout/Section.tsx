@@ -61,10 +61,10 @@ export const Section = forwardRef<HTMLElement, SectionProps>(function Section(
   }, [animate, ref]);
 
   const bgClasses = {
-    default: "bg-[#f1faee]",
-    muted: "bg-[#a8dadc]/20",
-    accent: "bg-[#457b9d] text-[#f1faee]",
-    dark: "bg-[#1d3557] text-[#f1faee]",
+    default: "bg-[#f9fafb]",
+    muted: "bg-[#cbd5e1]/20",
+    accent: "bg-[#334155] text-white",
+    dark: "bg-[#0f172a] text-white",
   };
 
   return (
@@ -150,9 +150,9 @@ interface DividerProps {
 
 export function Divider({ className, variant = "subtle" }: DividerProps) {
   const variantClasses = {
-    subtle: "border-stone-100",
-    medium: "border-stone-200",
-    strong: "border-stone-300",
+    subtle: "border-slate-200",
+    medium: "border-slate-300",
+    strong: "border-slate-400",
   };
 
   return <hr className={cn("border-t", variantClasses[variant], className)} />;

@@ -65,10 +65,10 @@ export function ComparisonSection({
           <Label variant="accent" className="mb-4">
             Comparisons
           </Label>
-          <Heading as="h2" size="section" className="text-[#1d3557]">
+          <Heading as="h2" size="section" className="text-[#0f172a]">
             Signal Correlations
           </Heading>
-          <Text size="lg" className="text-[#457b9d] mt-4 max-w-2xl">
+          <Text size="lg" className="text-[#475569] mt-4 max-w-2xl">
             Trends rarely exist in a vacuum. We track how different signals
             move in relation to each other.
           </Text>
@@ -79,9 +79,9 @@ export function ComparisonSection({
           {comparisons.map((comparison) => (
             <div
               key={comparison.id}
-              className="comparison-item bg-white rounded-xl border border-stone-200 p-6 md:p-8"
+              className="comparison-item bg-white/50 rounded-xl border border-[#cbd5e1]/50 p-6 md:p-8 backdrop-blur-sm"
             >
-              <h3 className="text-xl font-medium text-stone-900 mb-6">
+              <h3 className="text-xl font-medium text-[#0f172a] mb-6">
                 {comparison.title}
               </h3>
               <ComparisonChart data={comparison} showAnnotations />

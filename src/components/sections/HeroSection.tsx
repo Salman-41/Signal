@@ -74,7 +74,7 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
     <section
       ref={heroRef}
       className={cn(
-        "relative h-screen flex items-center overflow-hidden bg-[#f1faee]",
+        "relative h-screen flex items-center overflow-hidden bg-[#f9fafb]",
         className
       )}
     >
@@ -83,24 +83,24 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
         <div
           className="absolute inset-0 opacity-[0.05]"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, #457b9d 1px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 1px 1px, #cbd5e1 1px, transparent 0)`,
             backgroundSize: "40px 40px",
           }}
         />
         
         {/* Large background text to fill middle */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-black text-[#1d3557]/[0.02] select-none tracking-tighter uppercase whitespace-nowrap">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-black text-[#0f172a]/[0.02] select-none tracking-tighter uppercase whitespace-nowrap">
           Intelligence
         </div>
 
         {/* Vertical stream indicators */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-transparent via-[#a8dadc]/20 to-transparent hidden lg:block" />
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 px-2 py-1 bg-[#f1faee] border border-[#a8dadc]/40 text-[8px] font-bold text-[#457b9d]/40 uppercase tracking-widest -rotate-90 hidden lg:block">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-transparent via-[#cbd5e1]/30 to-transparent hidden lg:block" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 px-2 py-1 bg-[#f9fafb] border border-[#cbd5e1]/50 text-[8px] font-bold text-[#64748b]/60 uppercase tracking-widest -rotate-90 hidden lg:block">
           Data Stream: Active
         </div>
 
         <div className="absolute top-0 left-0 w-80 h-80 bg-[#e63946]/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#457b9d]/10 rounded-full blur-[100px] translate-x-1/3 translate-y-1/3" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#64748b]/5 rounded-full blur-[100px] translate-x-1/3 translate-y-1/3" />
       </div>
 
       <Container className="relative z-10">
@@ -113,20 +113,20 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
                 <span className="inline-block px-3 py-1 bg-[#e63946]/10 text-[#e63946] text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase rounded-full border border-[#e63946]/20">
                   v 1.2
                 </span>
-                <span className="text-[10px] font-bold text-[#457b9d]/60 uppercase tracking-widest hidden sm:block">
+                <span className="text-[10px] font-bold text-[#64748b]/60 uppercase tracking-widest hidden sm:block">
                   Global Trend Engine
                 </span>
               </div>
             </div>
 
             {/* Main Title */}
-            <h1 className="hero-animate-text text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[0.9] text-[#1d3557]">
+            <h1 className="hero-animate-text text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[0.9] text-[#0f172a]">
               Decode the <span className="italic text-[#e63946]">Signals</span>
               <br />
               of a <span className="relative inline-block">
                 Changing
                 <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 100 10" preserveAspectRatio="none">
-                  <path d="M0,5 Q50,0 100,5" stroke="#457b9d" strokeWidth="2" fill="none" opacity="0.3" />
+                  <path d="M0,5 Q50,0 100,5" stroke="#64748b" strokeWidth="2" fill="none" opacity="0.3" />
                 </svg>
               </span>
               <br className="lg:hidden" /> World.
@@ -136,7 +136,7 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
             <div className="hero-animate-text max-w-sm lg:max-w-md">
               <Text
                 size="xl"
-                className="text-[#457b9d] leading-relaxed font-medium opacity-80"
+                className="text-[#475569] leading-relaxed font-medium opacity-80"
               >
                 Real-time trend intelligence across economy, climate, and technology.
                 We identify technical patterns in public data before they become headlines.
@@ -159,14 +159,14 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
                 signal.trend === "up"
                   ? "text-[#e63946]"
                   : signal.trend === "down"
-                  ? "text-[#457b9d]"
-                  : "text-[#a8dadc]";
+                  ? "text-[#475569]"
+                  : "text-[#94a3b8]";
 
               return (
                 <div 
                   key={signal.id}
                   className={cn(
-                    "hero-animate-card group relative bg-white/60 p-5 rounded-3xl border border-[#a8dadc]/40 shadow-xl backdrop-blur-md flex items-center gap-6 overflow-hidden max-w-[340px] md:max-w-md w-full transition-all duration-700 hover:bg-white/80 hover:shadow-2xl hover:border-[#e63946]/40 hover:-translate-y-2",
+                    "hero-animate-card group relative bg-white/60 p-5 rounded-3xl border border-[#cbd5e1]/40 shadow-xl backdrop-blur-md flex items-center gap-6 overflow-hidden max-w-[340px] md:max-w-md w-full transition-all duration-700 hover:bg-white/80 hover:shadow-2xl hover:border-[#e63946]/40 hover:-translate-y-2",
                     idx === 1 && "lg:translate-x-8",
                     idx === 2 && "lg:translate-x-4"
                   )}
@@ -174,18 +174,18 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
                   <div className="absolute inset-0 bg-gradient-to-r from-[#e63946]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   <div className="relative flex flex-col items-start flex-1 min-w-0">
-                    <Label className="text-[#457b9d] text-[10px] uppercase tracking-widest font-bold">
+                    <Label className="text-[#64748b] text-[10px] uppercase tracking-widest font-bold">
                       {signal.category}
                     </Label>
-                    <span className="text-[#1d3557] font-medium text-lg mt-1 truncate w-full">
+                    <span className="text-[#0f172a] font-medium text-lg mt-1 truncate w-full">
                       {signal.title}
                     </span>
-                    <span className="text-[#457b9d]/60 text-xs mt-0.5 truncate w-full">
+                    <span className="text-[#64748b]/60 text-xs mt-0.5 truncate w-full">
                       {signal.subtitle}
                     </span>
                   </div>
 
-                  <div className="relative h-12 w-px bg-[#a8dadc]/30 mx-2" />
+                  <div className="relative h-12 w-px bg-[#cbd5e1]/30 mx-2" />
 
                   <div className="relative flex flex-col items-end shrink-0 font-mono">
                     <div className={cn("flex items-center gap-1.5", trendColor)}>
@@ -195,10 +195,10 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
                       </span>
                     </div>
                     <div className="flex items-baseline gap-1 mt-1">
-                      <span className="text-[#1d3557] text-2xl font-bold tracking-tight">
+                      <span className="text-[#0f172a] text-2xl font-bold tracking-tight">
                         {signal.currentValue}
                       </span>
-                      <span className="text-[#457b9d] text-sm font-medium">
+                      <span className="text-[#64748b] text-sm font-medium">
                         {signal.unit}
                       </span>
                     </div>

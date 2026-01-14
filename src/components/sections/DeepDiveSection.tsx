@@ -72,7 +72,7 @@ export function DeepDiveSection({ signal, className }: DeepDiveSectionProps) {
             <Label variant="accent" className="mb-4">
               Deep Dive
             </Label>
-            <Heading as="h2" size="section" className="text-[#1d3557]">
+            <Heading as="h2" size="section" className="text-[#0f172a]">
               {signal.title}
             </Heading>
             <Text size="lg" muted className="mt-4 max-w-2xl">
@@ -97,8 +97,8 @@ export function DeepDiveSection({ signal, className }: DeepDiveSectionProps) {
                   className={cn(
                     "px-4 py-2 rounded-lg text-sm font-medium transition-all",
                     activeView === "indexed"
-                      ? "bg-[#1d3557] text-[#f1faee]"
-                      : "bg-[#a8dadc]/20 text-[#457b9d] hover:bg-[#a8dadc]/40"
+                      ? "bg-[#0f172a] text-white"
+                      : "bg-[#cbd5e1]/30 text-[#64748b] hover:bg-[#cbd5e1]/50"
                   )}
                 >
                   Indexed Trend
@@ -108,8 +108,8 @@ export function DeepDiveSection({ signal, className }: DeepDiveSectionProps) {
                   className={cn(
                     "px-4 py-2 rounded-lg text-sm font-medium transition-all",
                     activeView === "rate"
-                      ? "bg-[#1d3557] text-[#f1faee]"
-                      : "bg-[#a8dadc]/20 text-[#457b9d] hover:bg-[#a8dadc]/40"
+                      ? "bg-[#0f172a] text-white"
+                      : "bg-[#cbd5e1]/30 text-[#64748b] hover:bg-[#cbd5e1]/50"
                   )}
                 >
                   Rate of Change
@@ -119,8 +119,8 @@ export function DeepDiveSection({ signal, className }: DeepDiveSectionProps) {
                   className={cn(
                     "px-4 py-2 rounded-lg text-sm font-medium transition-all",
                     activeView === "deviation"
-                      ? "bg-[#1d3557] text-[#f1faee]"
-                      : "bg-[#a8dadc]/20 text-[#457b9d] hover:bg-[#a8dadc]/40"
+                      ? "bg-[#0f172a] text-white"
+                      : "bg-[#cbd5e1]/30 text-[#64748b] hover:bg-[#cbd5e1]/50"
                   )}
                 >
                   Deviation from Mean
@@ -128,16 +128,16 @@ export function DeepDiveSection({ signal, className }: DeepDiveSectionProps) {
               </div>
 
               {/* Chart */}
-              <div className="bg-white/50 rounded-xl border border-[#a8dadc]/30 p-6 md:p-8 backdrop-blur-sm">
+              <div className="bg-white/50 rounded-xl border border-[#cbd5e1]/50 p-6 md:p-8 backdrop-blur-sm">
                 <div className="mb-4">
-                  <h4 className="font-medium text-[#1d3557]">
+                  <h4 className="font-medium text-[#0f172a]">
                     {activeView === "indexed"
                       ? "Historical Trend"
                       : activeView === "rate"
                       ? "Rate of Change Over Time"
                       : "Deviation from Historical Mean"}
                   </h4>
-                  <p className="text-sm text-[#457b9d] mt-1">
+                  <p className="text-sm text-[#64748b] mt-1">
                     {activeView === "indexed"
                       ? "Value trajectory over the observation period"
                       : activeView === "rate"
@@ -157,8 +157,8 @@ export function DeepDiveSection({ signal, className }: DeepDiveSectionProps) {
                         signal.trend === "up"
                           ? "#e63946"
                           : signal.trend === "down"
-                          ? "#457b9d"
-                          : "#1d3557"
+                          ? "#475569"
+                          : "#0f172a"
                       }
                       showArea
                       className="w-full h-full"
@@ -187,16 +187,16 @@ export function DeepDiveSection({ signal, className }: DeepDiveSectionProps) {
 
               {/* Interpretation */}
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-[#a8dadc]/10 rounded-lg p-5 border border-[#a8dadc]/20">
-                  <h5 className="text-sm font-medium text-[#1d3557] mb-2">
+                <div className="bg-[#cbd5e1]/20 rounded-lg p-5 border border-[#cbd5e1]/30">
+                  <h5 className="text-sm font-medium text-[#0f172a] mb-2">
                     What this suggests
                   </h5>
                   <Text size="sm" muted>
                     {signal.interpretation.whatItMeans}
                   </Text>
                 </div>
-                <div className="bg-[#a8dadc]/10 rounded-lg p-5 border border-[#a8dadc]/20">
-                  <h5 className="text-sm font-medium text-[#1d3557] mb-2">
+                <div className="bg-[#cbd5e1]/20 rounded-lg p-5 border border-[#cbd5e1]/30">
+                  <h5 className="text-sm font-medium text-[#0f172a] mb-2">
                     What it does not claim
                   </h5>
                   <Text size="sm" muted>
