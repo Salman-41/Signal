@@ -266,7 +266,7 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
       <Container className="relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-16 items-center">
           {/* Left Side: Content - Taking up ~60% space */}
-          <div className="flex flex-col items-start text-left space-y-6 lg:space-y-12 relative z-10">
+          <div className="flex flex-col items-start text-left space-y-4 lg:space-y-6 relative z-10">
 
             {/* Main Title */}
             <h1 className="hero-animate-text text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[0.9] text-[#0f172a]">
