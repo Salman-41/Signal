@@ -299,3 +299,45 @@ button:active, a:active {
 .animate-marquee-slow {
   animation: marquee 30s linear infinite;
 }
+
+@keyframes marquee-slow {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee-slow {
+  animation: marquee-slow 30s linear infinite;
+}
+
+@keyframes marquee-vertical {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+@keyframes path-draw {
+  from { stroke-dashoffset: 400; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes loading-bar {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical 20s linear infinite;
+}
+
+.animate-path-draw {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: path-draw 3s ease-out forwards;
+}
+
+.animate-loading-bar {
+  animation: loading-bar 2s ease-out infinite alternate;
+}
+
+.animate-spin-slow {
+  animation: spin 12s linear infinite;
+}

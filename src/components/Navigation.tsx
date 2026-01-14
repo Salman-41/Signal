@@ -61,26 +61,26 @@ export function Navigation({ className }: NavigationProps) {
                 e.preventDefault();
                 scrollTo(0, { duration: 1 });
               }}
-              className="flex items-center gap-2 text-[#0f172a] group"
+              className="flex items-center gap-3 text-[#0f172a] group"
             >
-              <Activity className="w-6 h-6 text-[#e63946] group-hover:rotate-12 transition-transform" />
-              <span className="font-medium text-lg tracking-tight">Signal</span>
+              <div className="w-9 h-9 rounded-xl bg-[#0f172a] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <Activity className="w-5 h-5 text-[#e63946]" />
+              </div>
+              <span className="font-semibold text-lg tracking-tight">Signal</span>
             </a>
 
             {/* Center: System Status - Smartly fitting text */}
-            <div className="hidden lg:flex items-center gap-4 text-[10px] font-bold tracking-[0.2em] uppercase text-[#64748b]/60">
+            <div className="hidden lg:flex items-center gap-3 px-4 py-2 rounded-full bg-[#0f172a]/5 border border-[#cbd5e1]/50">
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e63946] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#e63946]"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
-                <span>System Live</span>
+                <span className="text-[10px] font-bold tracking-[0.15em] uppercase text-[#0f172a]">System Live</span>
               </div>
               <div className="w-px h-3 bg-[#cbd5e1]/50" />
-              <div className="overflow-hidden whitespace-nowrap max-w-[200px]">
-                <div className="animate-marquee-slow inline-block">
-                  Global Ingestion Active • 54 Sources Online • Latency 12ms • 
-                </div>
+              <div className="text-[10px] font-mono text-[#64748b]">
+                54 Sources • 12ms
               </div>
             </div>
 

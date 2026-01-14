@@ -88,22 +88,19 @@ export function MethodologySection({ className }: MethodologySectionProps) {
 
   const principles = [
     {
-      icon: Database,
-      title: "Free, Public APIs Only",
+      title: "Broad Ingestion",
       description:
-        "All data comes from publicly accessible APIs with no authentication walls or paywalls.",
+        "We pull data from over 50 public APIs, including federal economic agencies, satellite climate sensors, and technology repositories.",
     },
     {
-      icon: RefreshCw,
-      title: "Client-Side Processing",
+      title: "Anomaly Detection",
       description:
-        "No backend servers. All data aggregation and transformation happens in your browser.",
+        "Our proprietary algorithms monitor for statistical anomalies—values that deviate more than 2.5 standard deviations from the 30-day mean.",
     },
     {
-      icon: AlertTriangle,
-      title: "Transparent Limitations",
+      title: "Signal Verification",
       description:
-        "We clearly state what each signal does and does not claim to represent.",
+        "Not every outlier is a signal. We correlate data across different indicators to verify the strength and permanence of a trend.",
     },
   ];
 
@@ -157,12 +154,34 @@ export function MethodologySection({ className }: MethodologySectionProps) {
                 <div className="inline-flex flex-col p-4 rounded-xl bg-white border border-[#cbd5e1]/50 shadow-sm">
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#e63946]" />
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#64748b]">System Module</span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#64748b]">
+                      {index === 0 && "Engine Specs"}
+                      {index === 1 && "Algorithmic Logic"}
+                      {index === 2 && "Verification Protocol"}
+                    </span>
                   </div>
-                  <div className="text-xs font-mono text-[#0f172a]/70">
-                    {index === 0 && "INGESTION_ENGINE_V4.2"}
-                    {index === 1 && "CLIENT_SIDE_RUNTIME_CORE"}
-                    {index === 2 && "INTERPRETIVE_GUARDRAILS_SECURE"}
+                  <div className="grid grid-cols-1 gap-1 text-[10px] font-mono text-[#0f172a]/70">
+                    {index === 0 && (
+                      <>
+                        <div>COVERAGE: 54_SOURCES</div>
+                        <div>SYNC: 2M_FREQUENCY</div>
+                        <div>INTEGRITY: 100%_VALID</div>
+                      </>
+                    )}
+                    {index === 1 && (
+                      <>
+                        <div>METHOD: Z-SCORE_(2.5σ)</div>
+                        <div>WINDOW: 30D_ROLLING</div>
+                        <div>SPIKE_DETECT: ENABLED</div>
+                      </>
+                    )}
+                    {index === 2 && (
+                      <>
+                        <div>LOGIC: INDICATOR_CORR</div>
+                        <div>CONFIDENCE: MIN_&gt;94%</div>
+                        <div>VERIFY: CROSS_SOURCE</div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -170,51 +189,112 @@ export function MethodologySection({ className }: MethodologySectionProps) {
               <div className="flex-1 relative group">
                 <div className="absolute -inset-4 bg-gradient-to-tr from-[#cbd5e1]/20 to-transparent rounded-[2rem] -rotate-1 group-hover:rotate-0 transition-transform duration-500" />
                 <div className="relative aspect-square md:aspect-video rounded-3xl overflow-hidden bg-[#0f172a] flex items-center justify-center border border-white/10 shadow-2xl">
-                  {/* Visual Representation */}
                   {index === 0 && (
-                    <div className="relative w-full h-full p-8 flex flex-col justify-between">
-                      <div className="flex justify-between items-start">
-                        <Database className="w-12 h-12 text-[#e63946]" />
-                        <div className="text-right">
-                          <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Incoming Stream</div>
-                          <div className="text-xl font-mono text-white">428.4 GB/s</div>
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        {[1, 2, 3].map(i => (
-                          <div key={i} className="h-1 bg-white/10 rounded-full overflow-hidden">
-                            <div className="h-full bg-[#e63946] animate-pulse" style={{ width: `${30 + i * 20}%` }} />
+                    <div className="relative w-full h-full p-6 flex flex-col justify-between">
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="flex flex-col">
+                          <div className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] mb-1">Stream Status</div>
+                          <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs">
+                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                             INGESTION_ACTIVE
                           </div>
-                        ))}
+                        </div>
+                        <Database className="w-8 h-8 text-[#e63946]" />
+                      </div>
+                      
+                      <div className="flex-1 overflow-hidden relative">
+                        <div className="absolute inset-x-0 top-0 h-4 bg-gradient-to-b from-[#0f172a] to-transparent z-10" />
+                        <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-[#0f172a] to-transparent z-10" />
+                        <div className="space-y-3 animate-marquee-vertical py-4">
+                          {[...dataSources, ...dataSources].map((source, i) => (
+                            <div key={i} className="flex items-center justify-between text-[10px] font-mono p-2 rounded bg-white/5 border border-white/10">
+                              <span className="text-white/60">{source.name}</span>
+                              <span className="text-emerald-400/80">FETCH_OK</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-white/10 flex justify-between items-center text-[10px] font-mono">
+                        <span className="text-white/30">TICKER_V4</span>
+                        <span className="text-[#e63946]">REAL_TIME_SYNC</span>
                       </div>
                     </div>
                   )}
+
                   {index === 1 && (
-                    <div className="relative w-full h-full p-8 flex flex-col items-center justify-center">
-                      <RefreshCw className="w-20 h-20 text-[#e63946] animate-spin-slow" />
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#0f172a_70%)] opacity-50" />
-                      <div className="mt-6 text-center">
-                        <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Compute Location</div>
-                        <div className="text-xl font-mono text-white">Browser Edge</div>
+                    <div className="relative w-full h-full p-8 flex flex-col justify-center">
+                      <div className="absolute top-4 left-4 text-[10px] font-mono text-white/30">MONITOR_σ_2.5</div>
+                      {/* Animated Threshold Chart */}
+                      <svg viewBox="0 0 200 100" className="w-full h-32 overflow-visible">
+                        {/* Baseline */}
+                        <line x1="0" y1="70" x2="200" y2="70" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.2" />
+                        {/* Threshold line */}
+                        <line x1="0" y1="30" x2="200" y2="30" stroke="#e63946" strokeWidth="1" strokeDasharray="4 2" opacity="0.4" />
+                        <text x="5" y="25" fill="#e63946" fontSize="6" className="font-mono">THRESHOLD_σ_2.5</text>
+                        
+                        {/* Data Line */}
+                        <path 
+                          d="M 0,72 L 20,68 L 40,75 L 60,65 L 80,72 L 100,20 L 120,68 L 140,72 L 160,65 L 180,75 L 200,70"
+                          fill="none"
+                          stroke="white"
+                          strokeWidth="1.5"
+                          className="animate-path-draw"
+                        />
+                        
+                        {/* Outlier Alert */}
+                        <g className="animate-pulse">
+                          <circle cx="100" cy="20" r="3" fill="#e63946" />
+                          <circle cx="100" cy="20" r="6" fill="none" stroke="#e63946" strokeWidth="0.5" opacity="0.5" />
+                        </g>
+                        <text x="105" y="15" fill="#e63946" fontSize="6" fontWeight="bold" className="font-mono">ANOMALY_DETECTED</text>
+                      </svg>
+                      
+                      <div className="mt-8 grid grid-cols-2 gap-4">
+                        <div className="p-2 rounded bg-white/5 border border-white/10">
+                          <div className="text-[8px] text-white/40 uppercase">Deviance</div>
+                          <div className="text-sm font-mono text-white">+4.2σ</div>
+                        </div>
+                        <div className="p-2 rounded bg-white/5 border border-white/10 text-[#e63946]">
+                          <div className="text-[8px] text-[#e63946]/60 uppercase">Action</div>
+                          <div className="text-sm font-mono">FLAG_SET</div>
+                        </div>
                       </div>
                     </div>
                   )}
+
                   {index === 2 && (
-                    <div className="relative w-full h-full p-8 flex flex-col justify-center gap-6">
-                      <div className="flex items-center gap-4">
-                        <Search className="w-8 h-8 text-[#e63946]" />
-                        <div className="h-px flex-1 bg-white/20" />
-                        <Check className="w-8 h-8 text-emerald-400" />
+                    <div className="relative w-full h-full p-8 flex flex-col justify-center">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center">
+                          <RefreshCw className="w-6 h-6 text-white/40 animate-spin-slow" />
+                        </div>
+                        <div className="h-px flex-1 bg-gradient-to-r from-white/20 to-emerald-400" />
+                        <div className="w-12 h-12 rounded-full bg-emerald-400/20 border border-emerald-400 flex items-center justify-center">
+                          <Check className="w-6 h-6 text-emerald-400" />
+                        </div>
                       </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="p-3 bg-white/5 border border-white/10 rounded-lg">
-                          <div className="text-[8px] text-white/40 uppercase">Outlier Detection</div>
-                          <div className="text-sm font-mono text-white">PASS</div>
+                      
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between group/line">
+                          <span className="text-[10px] font-mono text-white/40">Indicator_A</span>
+                          <div className="flex-1 mx-4 h-1 bg-white/10 rounded-full overflow-hidden">
+                            <div className="h-full bg-white/40 group-hover:bg-emerald-400 transition-colors animate-loading-bar" style={{ animationDelay: '0s' }} />
+                          </div>
+                          <span className="text-[10px] font-mono text-emerald-400">CORRELATED</span>
                         </div>
-                        <div className="p-3 bg-white/5 border border-white/10 rounded-lg">
-                          <div className="text-[8px] text-white/40 uppercase">Bias Verification</div>
-                          <div className="text-sm font-mono text-white">PASS</div>
+                        <div className="flex items-center justify-between group/line">
+                          <span className="text-[10px] font-mono text-white/40">Indicator_B</span>
+                          <div className="flex-1 mx-4 h-1 bg-white/10 rounded-full overflow-hidden">
+                            <div className="h-full bg-white/40 group-hover:bg-emerald-400 transition-colors animate-loading-bar" style={{ animationDelay: '0.2s' }} />
+                          </div>
+                          <span className="text-[10px] font-mono text-emerald-400">CORRELATED</span>
                         </div>
+                      </div>
+
+                      <div className="mt-8 p-4 rounded-xl bg-emerald-400/5 border border-emerald-400/20 text-center">
+                        <div className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest mb-1">Verification Status</div>
+                        <div className="text-xs font-bold text-white tracking-widest">SIGNAL_STRENGTH_VERIFIED_98%</div>
                       </div>
                     </div>
                   )}
