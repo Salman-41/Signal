@@ -54,35 +54,40 @@ export function Navigation({ className }: NavigationProps) {
       >
         <div className="w-full px-6 md:px-8 lg:px-12">
           <nav className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollTo(0, { duration: 1 });
-              }}
-              className="flex items-center gap-3 text-[#0f172a] group"
-            >
-              <div className="w-9 h-9 rounded-xl bg-[#0f172a] flex items-center justify-center group-hover:scale-105 transition-transform">
-                <Activity className="w-5 h-5 text-[#e63946]" />
-              </div>
-              <span className="font-semibold text-lg tracking-tight">Signal</span>
-            </a>
+            <div className="flex items-center gap-6">
+              {/* Logo */}
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo(0, { duration: 1 });
+                }}
+                className="flex items-center gap-3 text-[#0f172a] group"
+              >
+                <div className="w-9 h-9 rounded-xl bg-[#0f172a] flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <Activity className="w-5 h-5 text-[#e63946]" />
+                </div>
+                <span className="font-semibold text-lg tracking-tight">Signal</span>
+              </a>
 
-            {/* Center: System Status - Smartly fitting text */}
-            <div className="hidden lg:flex items-center gap-3 px-4 py-2 rounded-full bg-[#0f172a]/5 border border-[#cbd5e1]/50">
-              <div className="flex items-center gap-2">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                </span>
-                <span className="text-[10px] font-bold tracking-[0.15em] uppercase text-[#0f172a]">System Live</span>
-              </div>
-              <div className="w-px h-3 bg-[#cbd5e1]/50" />
-              <div className="text-[10px] font-mono text-[#64748b]">
-                54 Sources • 12ms
+              {/* System Live - Minimal with Metrics */}
+              <div className="hidden sm:flex items-center gap-4 text-[#0f172a]/50">
+                <div className="flex items-center gap-2">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                  </span>
+                  <span className="text-[9px] font-bold tracking-[0.1em] uppercase text-[#0f172a]">Live</span>
+                </div>
+                <div className="w-px h-3 bg-[#cbd5e1]" />
+                <div className="flex items-center gap-4 text-[9px] font-mono whitespace-nowrap">
+                  <span>54_SOURCES</span>
+                  <span>LATENCY: 12ms</span>
+                </div>
               </div>
             </div>
+
+
 
             {/* Desktop navigation */}
             <div className="hidden md:flex items-center gap-8">

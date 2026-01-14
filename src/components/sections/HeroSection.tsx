@@ -74,50 +74,73 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
     <section
       ref={heroRef}
       className={cn(
-        "relative h-screen flex items-center overflow-hidden bg-[#f9fafb]",
+        "relative h-screen flex items-center overflow-hidden bg-[#f9fafb] bg-grain",
         className
       )}
     >
-      {/* Background patterns */}
+      {/* Background patterns and Image */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.05]"
+        {/* Main Background Image - Blended */}
+        <div 
+          className="absolute inset-0 opacity-20 hover:opacity-30 transition-opacity duration-700"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, #cbd5e1 1px, transparent 0)`,
-            backgroundSize: "40px 40px",
+            backgroundImage: `url('/hero-bg.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
           }}
         />
         
-        {/* Large background text to fill middle */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-black text-[#0f172a]/[0.02] select-none tracking-tighter uppercase whitespace-nowrap">
+        {/* Large Typographic Watermark */}
+        <div className="hero-animate-text absolute top-[18%] left-1/2 -translate-x-1/2 text-[12vw] font-black text-[#0f172a]/[0.012] select-none tracking-tighter uppercase whitespace-nowrap pointer-events-none transition-transform duration-[2s] group-hover:scale-[1.02]">
+          Quantitative
+        </div>
+        <div className="hero-animate-text absolute bottom-[10%] left-1/2 -translate-x-1/2 text-[12vw] font-black text-[#0f172a]/[0.012] select-none tracking-tighter uppercase whitespace-nowrap pointer-events-none transition-transform duration-[2s] group-hover:scale-[0.98]">
           Intelligence
         </div>
 
-        {/* Vertical stream indicators */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-transparent via-[#cbd5e1]/30 to-transparent hidden lg:block" />
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 px-2 py-1 bg-[#f9fafb] border border-[#cbd5e1]/50 text-[8px] font-bold text-[#64748b]/60 uppercase tracking-widest -rotate-90 hidden lg:block">
-          Data Stream: Active
+        {/* Secondary Editorial Watermarks */}
+        <div className="absolute top-[40%] right-[10%] text-[8vw] font-black text-[#64748b]/[0.008] select-none tracking-tighter uppercase whitespace-nowrap pointer-events-none -rotate-12">
+          System Node
+        </div>
+        <div className="absolute top-[60%] left-[5%] text-[6vw] font-black text-[#64748b]/[0.008] select-none tracking-tighter uppercase whitespace-nowrap pointer-events-none rotate-6">
+          Global Feed
         </div>
 
-        <div className="absolute top-0 left-0 w-80 h-80 bg-[#e63946]/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#64748b]/5 rounded-full blur-[100px] translate-x-1/3 translate-y-1/3" />
+        {/* Measurement Grid Overlays */}
+        <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
+          style={{
+            backgroundImage: `linear-gradient(to right, #64748b 1px, transparent 1px), linear-gradient(to bottom, #64748b 1px, transparent 1px)`,
+            backgroundSize: '100px 100px'
+          }}
+        />
+
+        {/* Geometric Corner Brackets */}
+        <div className="absolute top-12 left-12 w-12 h-12 border-t border-l border-[#64748b]/10 hidden xl:block" />
+        <div className="absolute top-12 right-12 w-12 h-12 border-t border-r border-[#64748b]/10 hidden xl:block" />
+        <div className="absolute bottom-12 left-12 w-12 h-12 border-b border-l border-[#64748b]/10 hidden xl:block" />
+        <div className="absolute bottom-12 right-12 w-12 h-12 border-b border-r border-[#64748b]/10 hidden xl:block" />
+
+        {/* System Meta Watermarks - Monospaced */}
+        <div className="absolute bottom-24 left-12 text-[10px] font-mono text-[#64748b]/20 tracking-[0.3em] uppercase hidden 2xl:block -rotate-90 origin-left">
+          [ 52.3676° N, 4.9041° E ]
+        </div>
+        <div className="absolute top-24 right-12 text-[10px] font-mono text-[#64748b]/20 tracking-[0.3em] uppercase hidden 2xl:block rotate-90 origin-right">
+          SIGNAL_STATUS_STABLE_V4.2
+        </div>
+
+        {/* Overlay Gradient to soften it */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#f9fafb]/80 via-transparent to-[#f9fafb]/90" />
+
+
+
+        {/* Subtle red glow from the image concept */}
+        <div className="absolute top-0 left-1/2 w-[500px] h-[500px] bg-[#e63946]/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
       </div>
 
       <Container className="relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-16 items-center">
           {/* Left Side: Content - Taking up ~60% space */}
           <div className="flex flex-col items-start text-left space-y-6 lg:space-y-12 relative z-10">
-            {/* Eyebrow */}
-            <div className="hero-animate-text">
-              <div className="flex items-center gap-3">
-                <span className="inline-block px-3 py-1 bg-[#e63946]/10 text-[#e63946] text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase rounded-full border border-[#e63946]/20">
-                  v 1.2
-                </span>
-                <span className="text-[10px] font-bold text-[#64748b]/60 uppercase tracking-widest hidden sm:block">
-                  Global Trend Engine
-                </span>
-              </div>
-            </div>
 
             {/* Main Title */}
             <h1 className="hero-animate-text text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[0.9] text-[#0f172a]">
@@ -133,7 +156,7 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
             </h1>
 
             {/* Subtext */}
-            <div className="hero-animate-text max-w-sm lg:max-w-md">
+            <div className="hero-animate-text max-w-2xl lg:max-w-3xl">
               <Text
                 size="xl"
                 className="text-[#475569] leading-relaxed font-medium opacity-80"
@@ -141,6 +164,22 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
                 Real-time trend intelligence across economy, climate, and technology.
                 We identify technical patterns in public data before they become headlines.
               </Text>
+            </div>
+
+            {/* CTA */}
+            <div className="hero-animate-text relative flex flex-wrap items-center gap-6 pt-4">
+              {/* Subtle Tech Watermark for CTA */}
+              <div className="absolute -top-4 left-0 text-[8px] font-mono text-[#64748b]/30 tracking-[0.4em] uppercase">
+                Platform_Protocol_V4
+              </div>
+
+              <button className="group relative px-8 py-4 bg-[#0f172a] text-white rounded-2xl font-bold overflow-hidden transition-all hover:scale-[1.02] hover:shadow-2xl active:scale-[0.98]">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#e63946] to-[#0f172a] opacity-0 group-hover:opacity-10 transition-opacity" />
+                <span className="relative flex items-center gap-2">
+                  Launch Platform
+                  <ArrowDown className="w-4 h-4 -rotate-[135deg] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </span>
+              </button>
             </div>
           </div>
 
