@@ -21,8 +21,8 @@ export function Footer({ className }: FooterProps) {
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <Activity className="w-6 h-6 text-[#e63946]" />
+            <div className="flex items-center gap-3 mb-4">
+              <Activity className="w-8 h-8 text-[#e63946]" />
               <span className="font-medium text-lg tracking-tight">Signal</span>
             </div>
             <p className="text-white/50 max-w-md leading-relaxed">

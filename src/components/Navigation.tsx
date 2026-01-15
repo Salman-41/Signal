@@ -64,9 +64,7 @@ export function Navigation({ className }: NavigationProps) {
                 }}
                 className="flex items-center gap-3 text-[#0f172a] group"
               >
-                <div className="w-9 h-9 rounded-xl bg-[#0f172a] flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <Activity className="w-5 h-5 text-[#e63946]" />
-                </div>
+                <Activity className="w-10 h-10 text-[#e63946] group-hover:scale-110 transition-transform" />
                 <span className="font-semibold text-lg tracking-tight">Signal</span>
               </a>
 
