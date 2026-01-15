@@ -163,7 +163,7 @@ export function SignalCard({
       <div
         ref={cardRef}
         className={cn(
-          "group relative p-8 md:p-10 rounded-2xl border-2 border-[#cbd5e1]/50 bg-white/50 backdrop-blur-sm",
+          "group relative p-6 md:p-10 rounded-2xl md:rounded-3xl border-2 border-[#cbd5e1]/50 bg-white/50 backdrop-blur-sm",
           "hover:border-[#e63946]/30 hover:shadow-2xl transition-all duration-500",
           className
         )}
@@ -171,17 +171,17 @@ export function SignalCard({
         onMouseLeave={() => setIsHovered(false)}
       >
         {/* Category badge */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4 md:mb-6">
           <div
             className={cn(
-              "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium",
+              "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] md:text-sm font-bold uppercase tracking-wider",
               categoryMeta.bgColor,
               categoryMeta.color
             )}
           >
             <span
               className={cn(
-                "w-2 h-2 rounded-full",
+                "w-1.5 h-1.5 md:w-2 md:h-2 rounded-full",
                 signal.trend === "up"
                   ? "bg-[#e63946]"
                   : signal.trend === "down"
@@ -197,60 +197,64 @@ export function SignalCard({
             rel="noopener noreferrer"
             className="text-[#64748b] hover:text-[#0f172a] transition-colors"
           >
-            <ExternalLink className="w-4 h-4" />
+            <ExternalLink className="w-3.5 h-3.5 md:w-4 md:h-4" />
           </a>
         </div>
 
         {/* Title and subtitle */}
-        <div className="mb-6">
-          <h3 className="text-2xl md:text-3xl font-medium text-[#0f172a] tracking-tight">
+        <div className="mb-4 md:mb-6">
+          <h3 className="text-xl sm:text-2xl md:text-3xl font-medium text-[#0f172a] tracking-tight leading-tight">
             {signal.title}
           </h3>
           {signal.subtitle && (
-            <p className="text-[#64748b] mt-1">{signal.subtitle}</p>
+            <p className="text-xs md:text-base text-[#64748b] mt-1 md:mt-2">
+              {signal.subtitle}
+            </p>
           )}
         </div>
 
         {/* Value and change */}
-        <div className="flex items-end justify-between gap-6 mb-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
           <div>
-            <DataValue size="2xl" trend={signal.trend}>
+            <DataValue size="2xl" trend={signal.trend} className="text-3xl md:text-5xl">
               {signal.currentValue}
-              <span className="text-2xl ml-1 text-[#64748b]">
+              <span className="text-xl md:text-2xl ml-1 text-[#64748b] font-normal">
                 {signal.unit}
               </span>
             </DataValue>
             <div className={cn("flex items-center gap-2 mt-2", trendColor)}>
-              <TrendIcon className="w-5 h-5" />
-              <span className="text-lg font-medium tabular-nums">
+              <TrendIcon className="w-4 h-4 md:w-5 md:h-5" />
+              <span className="text-base md:text-lg font-bold tabular-nums">
                 {formatPercent(signal.changePercent)}
               </span>
-              <span className="text-[#cbd5e1] text-sm">vs previous</span>
+              <span className="text-[#cbd5e1] text-[10px] md:text-sm font-mono tracking-tighter uppercase">vs previous</span>
             </div>
           </div>
 
           {/* Sparkline */}
           {showSparkline && (
-            <svg
-              ref={sparklineRef}
-              viewBox="0 0 120 40"
-              className="w-32 h-12 opacity-60 group-hover:opacity-100 transition-opacity"
-            >
-              <path
-                d={generateSparklinePath()}
-                fill="none"
-                stroke={sparklineColor}
-                strokeWidth={1.5}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <div className="w-full md:w-auto mt-2 md:mt-0">
+              <svg
+                ref={sparklineRef}
+                viewBox="0 0 120 40"
+                className="w-full md:w-32 h-10 md:h-12 opacity-60 group-hover:opacity-100 transition-opacity"
+              >
+                <path
+                  d={generateSparklinePath()}
+                  fill="none"
+                  stroke={sparklineColor}
+                  strokeWidth={1.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
           )}
         </div>
 
         {/* Interpretation */}
-        <div className="pt-6 border-t border-[#cbd5e1]/50">
-          <Text size="sm" className="text-[#0f172a]/80">
+        <div className="pt-4 md:pt-6 border-t border-[#cbd5e1]/50">
+          <Text size="sm" className="text-[#0f172a]/80 text-[13px] md:text-sm leading-relaxed">
             {signal.interpretation.whatItMeans}
           </Text>
         </div>
@@ -258,7 +262,7 @@ export function SignalCard({
         {/* Anomaly badge */}
         {signal.anomalies && signal.anomalies.length > 0 && (
           <div className="mt-4 flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium bg-[#e63946]/5 text-[#e63946] rounded-full border border-[#e63946]/20">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[9px] md:text-xs font-bold bg-[#e63946]/5 text-[#e63946] rounded-full border border-[#e63946]/20 uppercase tracking-widest">
               <span className="w-1.5 h-1.5 bg-[#e63946] rounded-full animate-pulse" />
               {signal.anomalies[0].description}
             </span>

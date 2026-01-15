@@ -83,32 +83,32 @@ export function GlobalNewsSection({ className }: GlobalNewsSectionProps) {
     <Section className={cn("py-16 md:py-24", className)} background="default">
       <Container>
         {/* Header */}
-        <div className="flex items-center justify-between mb-10">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
           <div>
-            <div className="flex items-center gap-3 mb-3">
-              <Newspaper className="w-6 h-6 text-[#e63946]" />
-              <Heading as="h2" size="section" className="text-[#0f172a]">
+            <div className="flex items-center gap-3 mb-2 md:mb-3">
+              <Newspaper className="w-5 h-5 md:w-6 h-6 text-[#e63946]" />
+              <Heading as="h2" size="section" className="text-[#0f172a] text-2xl md:text-3xl lg:text-5xl">
                 Latest Signal News
               </Heading>
             </div>
-            <Text size="base" muted>
+            <Text size="base" muted className="text-sm md:text-base">
               Real-time headlines affecting global indicators
             </Text>
           </div>
           
-          <div className="flex items-center gap-4">
+          <div className="flex items-center justify-between md:justify-end gap-3 md:gap-4 border-t border-[#cbd5e1]/40 pt-4 md:border-none md:pt-0">
             {lastUpdated && (
-              <span className="text-xs text-[#94a3b8]">
-                Updated {formatRelativeTime(lastUpdated)}
+              <span className="text-[10px] md:text-xs text-[#94a3b8] font-mono">
+                REFRESHED: {formatRelativeTime(lastUpdated)}
               </span>
             )}
             <button
               onClick={loadAllNews}
               disabled={loading}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-[#cbd5e1]/50 text-sm font-medium text-[#64748b] hover:text-[#0f172a] hover:border-[#e63946]/30 transition-all disabled:opacity-50"
+              className="flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-lg border border-[#cbd5e1]/50 text-xs md:sm font-bold uppercase tracking-wider text-[#64748b] hover:text-[#0f172a] hover:border-[#e63946]/30 transition-all disabled:opacity-50"
             >
-              <RefreshCw className={cn("w-4 h-4", loading && "animate-spin")} />
-              Refresh
+              <RefreshCw className={cn("w-3.5 h-3.5 md:w-4 h-4", loading && "animate-spin")} />
+              Sync
             </button>
           </div>
         </div>

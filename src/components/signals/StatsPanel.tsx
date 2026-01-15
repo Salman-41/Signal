@@ -126,20 +126,20 @@ export function StatsPanel({ data, currentValue, unit, className }: StatsPanelPr
             Moving Averages
           </span>
         </div>
-        <div className="grid grid-cols-3 gap-3">
-          <div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="flex items-center justify-between sm:block border-b sm:border-none border-[#e2e8f0] pb-2 sm:pb-0">
             <div className="text-[10px] text-[#94a3b8] mb-1">7-Period</div>
             <div className="text-sm font-bold text-[#0f172a] tabular-nums">
               {stats.movingAverages.ma7 !== null ? formatStatValue(stats.movingAverages.ma7) : "—"}
             </div>
           </div>
-          <div>
+          <div className="flex items-center justify-between sm:block border-b sm:border-none border-[#e2e8f0] py-2 sm:py-0">
             <div className="text-[10px] text-[#94a3b8] mb-1">30-Period</div>
             <div className="text-sm font-bold text-[#0f172a] tabular-nums">
               {stats.movingAverages.ma30 !== null ? formatStatValue(stats.movingAverages.ma30) : "—"}
             </div>
           </div>
-          <div>
+          <div className="flex items-center justify-between sm:block pt-2 sm:pt-0">
             <div className="text-[10px] text-[#94a3b8] mb-1">90-Period</div>
             <div className="text-sm font-bold text-[#0f172a] tabular-nums">
               {stats.movingAverages.ma90 !== null ? formatStatValue(stats.movingAverages.ma90) : "—"}

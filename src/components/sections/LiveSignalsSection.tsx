@@ -103,23 +103,25 @@ export function LiveSignalsSection({
             return (
               <div key={category}>
                 {/* Category header */}
-                <div className="flex items-center gap-3 mb-6">
-                  <div
-                    className={cn(
-                      "w-2 h-2 rounded-full",
-                      category === "economic"
-                        ? "bg-[#0f172a]"
-                        : category === "climate"
-                        ? "bg-[#334155]"
-                        : category === "tech"
-                        ? "bg-[#e63946]"
-                        : "bg-[#94a3b8]"
-                    )}
-                  />
-                  <h3 className="text-lg font-medium text-[#0f172a]">
-                    {meta.label}
-                  </h3>
-                  <span className="text-sm text-[#64748b]">
+                <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 md:gap-3 mb-6 md:mb-8">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={cn(
+                        "w-2 h-2 rounded-full",
+                        category === "economic"
+                          ? "bg-[#0f172a]"
+                          : category === "climate"
+                          ? "bg-[#334155]"
+                          : category === "tech"
+                          ? "bg-[#e63946]"
+                          : "bg-[#94a3b8]"
+                      )}
+                    />
+                    <h3 className="text-lg md:text-xl font-bold text-[#0f172a] uppercase tracking-tight">
+                      {meta.label}
+                    </h3>
+                  </div>
+                  <span className="text-xs md:text-sm text-[#64748b] sm:ml-2 font-mono opacity-60">
                     {meta.description}
                   </span>
                 </div>

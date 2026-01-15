@@ -120,22 +120,37 @@ export function Navigation({ className }: NavigationProps) {
       {/* Mobile menu */}
       <div
         className={cn(
-          "fixed inset-0 z-40 bg-[#f9fafb] md:hidden transition-all duration-500",
+          "fixed inset-0 z-40 bg-[#f9fafb] md:hidden transition-all duration-500 flex flex-col",
           isMobileMenuOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+            ? "translate-x-0 opacity-100"
+            : "translate-x-full opacity-0"
         )}
       >
-        <div className="flex flex-col items-center justify-center h-full gap-8">
-          {navItems.map((item) => (
+        <div className="flex flex-col items-center justify-center flex-1 gap-8 p-6">
+          {navItems.map((item, idx) => (
             <button
               key={item.href}
               onClick={() => handleNavClick(item.href)}
-              className="text-2xl font-medium text-[#0f172a] hover:text-[#64748b] transition-colors"
+              className="text-3xl font-bold text-[#0f172a] hover:text-[#e63946] transition-colors translate-y-4 opacity-0 animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-forwards"
+              style={{ animationDelay: `${idx * 100}ms` }}
             >
               {item.label}
             </button>
           ))}
+        </div>
+        
+        {/* Mobile menu bottom info */}
+        <div className="p-8 border-t border-[#cbd5e1]/40 bg-white/50">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#0f172a]">System Operational</span>
+            </div>
+            <span className="text-[10px] font-mono text-[#64748b]">v4.2.0-stable</span>
+          </div>
         </div>
       </div>
     </>

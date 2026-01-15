@@ -255,130 +255,123 @@ export function SignalDetailSection({
         </div>
 
         {/* Hero Header */}
-        <div ref={heroRef} className="detail-animate mb-12 relative z-30">
-          <div className="flex items-start justify-between gap-6 flex-wrap">
-            <div>
+        <div ref={heroRef} className="detail-animate mb-8 md:mb-12 relative z-30">
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+            <div className="flex-1">
               {/* Category badge */}
               <div
                 className={cn(
-                  "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-4",
+                  "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider mb-4",
                   categoryMeta.bgColor,
                   categoryMeta.color
                 )}
               >
-                <span
-                  className={cn(
-                    "w-2 h-2 rounded-full",
-                    currentTrend === "up"
-                      ? "bg-[#e63946]"
-                      : currentTrend === "down"
-                      ? "bg-[#457b9d]"
-                      : "bg-[#a8dadc]"
-                  )}
-                />
+                <Activity className="w-3 h-3" />
                 {categoryMeta.label}
               </div>
 
               {/* Title & Country Selector */}
-              <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
+              <div className="flex flex-col gap-6">
                 <div>
-                  <Heading as="h1" size="hero" className="text-[#0f172a] tracking-tight">
+                  <Heading as="h1" size="hero" className="text-[#0f172a] tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-7xl leading-[1.1]">
                     {signal.title}
                   </Heading>
                   {signal.subtitle && (
-                    <Text size="lg" muted className="mt-2 text-[#64748b]">
+                    <Text size="lg" muted className="mt-2 text-[#64748b] text-base md:text-lg">
                       {signal.subtitle}
                     </Text>
                   )}
                 </div>
 
-                {/* Top Country Selector */}
-                {isCountryEnabled && availableCountries.length > 0 && (
-                  <div ref={countryDropdownRef} className="relative mb-2 z-50">
-                    <button
-                      onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
-                      className="flex items-center gap-3 px-5 py-3 rounded-2xl border-2 border-[#cbd5e1]/40 bg-white/80 backdrop-blur-md hover:border-[#e63946]/40 hover:shadow-xl transition-all min-w-[240px] justify-between group"
-                    >
-                      <span className="flex items-center gap-3">
-                        <Globe className="w-5 h-5 text-[#64748b] group-hover:text-[#e63946] transition-colors" />
-                        <span className="text-2xl">{selectedCountry.flag}</span>
-                        <span className="text-base font-bold text-[#0f172a]">{selectedCountry.name}</span>
-                      </span>
-                      <ChevronDown className={cn(
-                        "w-5 h-5 text-[#64748b] transition-transform duration-300",
-                        isCountryDropdownOpen && "rotate-180"
-                      )} />
-                    </button>
-                    
-                    {/* Dropdown menu with Search */}
-                    {isCountryDropdownOpen && (
-                      <div className="absolute top-full mt-3 left-0 w-[320px] bg-white rounded-2xl border-2 border-[#cbd5e1]/40 shadow-2xl z-[9999] overflow-hidden">
-                        {/* Search Input */}
-                        <div className="p-3 border-b border-[#cbd5e1]/30 bg-slate-50/50">
-                          <div className="relative">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#94a3b8]" />
-                            <input
-                              type="text"
-                              placeholder="Search country..."
-                              value={searchQuery}
-                              onChange={(e) => setSearchQuery(e.target.value)}
-                              className="w-full pl-9 pr-4 py-2 bg-white rounded-xl border border-[#cbd5e1]/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#e63946]/20 focus:border-[#e63946]/40 transition-all"
-                              autoFocus
-                              onClick={(e) => e.stopPropagation()}
-                            />
+                {/* Country Selector & Source Link Group */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                  {isCountryEnabled && availableCountries.length > 0 && (
+                    <div ref={countryDropdownRef} className="relative z-50 w-full sm:w-auto">
+                      <button
+                        onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
+                        className="flex items-center gap-3 px-4 md:px-5 py-2.5 md:py-3 rounded-xl md:rounded-2xl border-2 border-[#cbd5e1]/40 bg-white/80 backdrop-blur-md hover:border-[#e63946]/40 hover:shadow-xl transition-all w-full sm:min-w-[240px] justify-between group"
+                      >
+                        <span className="flex items-center gap-3 truncate">
+                          <Globe className="w-4 h-4 md:w-5 h-5 text-[#64748b] group-hover:text-[#e63946] transition-colors" />
+                          <span className="text-xl md:text-2xl">{selectedCountry.flag}</span>
+                          <span className="text-sm md:text-base font-bold text-[#0f172a] truncate">{selectedCountry.name}</span>
+                        </span>
+                        <ChevronDown className={cn(
+                          "w-4 h-4 md:w-5 h-5 text-[#64748b] transition-transform duration-300 shrink-0",
+                          isCountryDropdownOpen && "rotate-180"
+                        )} />
+                      </button>
+                      
+                      {/* Dropdown menu with Search */}
+                      {isCountryDropdownOpen && (
+                        <div className="absolute top-full mt-2 left-0 w-full sm:w-[320px] bg-white rounded-2xl border-2 border-[#cbd5e1]/40 shadow-2xl z-[9999] overflow-hidden">
+                          {/* Search Input */}
+                          <div className="p-3 border-b border-[#cbd5e1]/30 bg-slate-50/50">
+                            <div className="relative">
+                              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#94a3b8]" />
+                              <input
+                                type="text"
+                                placeholder="Search country..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full pl-9 pr-4 py-2 bg-white rounded-xl border border-[#cbd5e1]/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#e63946]/20 focus:border-[#e63946]/40 transition-all font-mono"
+                                autoFocus
+                                onClick={(e) => e.stopPropagation()}
+                              />
+                            </div>
+                          </div>
+                          
+                          <div className="max-h-[300px] overflow-y-auto p-2 country-scrollbar">
+                            {filteredCountries.length > 0 ? (
+                              filteredCountries.map((country) => (
+                                <button
+                                  key={country.code}
+                                  onClick={() => handleCountrySelect(country)}
+                                  className={cn(
+                                    "w-full flex items-center gap-4 px-4 py-3 rounded-xl text-left transition-all",
+                                    selectedCountry.code === country.code
+                                      ? "bg-[#e63946] text-white"
+                                      : "hover:bg-[#f1f5f9] text-[#0f172a]"
+                                  )}
+                                >
+                                  <span className="text-2xl">{country.flag}</span>
+                                  <div className="flex flex-col">
+                                    <span className="text-sm font-bold leading-none">{country.name}</span>
+                                    <span className={cn(
+                                      "text-[10px] uppercase tracking-widest mt-1 opacity-60 font-mono",
+                                      selectedCountry.code === country.code ? "text-white" : "text-[#64748b]"
+                                    )}>{country.code}</span>
+                                  </div>
+                                  {selectedCountry.code === country.code && (
+                                    <CheckCircle className="w-5 h-5 ml-auto text-white" />
+                                  )}
+                                </button>
+                              ))
+                            ) : (
+                              <div className="p-8 text-center text-mono">
+                                <Search className="w-8 h-8 text-[#cbd5e1] mx-auto mb-2" />
+                                <p className="text-sm text-[#94a3b8]">No matches</p>
+                              </div>
+                            )}
                           </div>
                         </div>
-                        
-                        <div className="max-h-[300px] overflow-y-auto p-2 country-scrollbar">
-                          {filteredCountries.length > 0 ? (
-                            filteredCountries.map((country) => (
-                              <button
-                                key={country.code}
-                                onClick={() => handleCountrySelect(country)}
-                                className={cn(
-                                  "w-full flex items-center gap-4 px-4 py-3 rounded-xl text-left transition-all",
-                                  selectedCountry.code === country.code
-                                    ? "bg-[#e63946] text-white"
-                                    : "hover:bg-[#f1f5f9] text-[#0f172a]"
-                                )}
-                              >
-                                <span className="text-2xl">{country.flag}</span>
-                                <div className="flex flex-col">
-                                  <span className="text-sm font-bold leading-none">{country.name}</span>
-                                  <span className={cn(
-                                    "text-[10px] uppercase tracking-widest mt-1 opacity-60",
-                                    selectedCountry.code === country.code ? "text-white" : "text-[#64748b]"
-                                  )}>{country.code}</span>
-                                </div>
-                                {selectedCountry.code === country.code && (
-                                  <CheckCircle className="w-5 h-5 ml-auto text-white" />
-                                )}
-                              </button>
-                            ))
-                          ) : (
-                            <div className="p-8 text-center">
-                              <Search className="w-8 h-8 text-[#cbd5e1] mx-auto mb-2" />
-                              <p className="text-sm text-[#94a3b8]">No countries found</p>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
+                      )}
+                    </div>
+                  )}
+
+                  {/* External source link */}
+                  <a
+                    href={signal.source.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#cbd5e1]/50 text-xs font-bold uppercase tracking-wider text-[#64748b] hover:text-[#0f172a] hover:border-[#e63946]/30 hover:bg-white/50 transition-all w-full sm:w-auto justify-center bg-white/40"
+                  >
+                    Source
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
               </div>
             </div>
-
-            {/* External source link */}
-            <a
-              href={signal.source.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-[#cbd5e1]/50 text-sm font-medium text-[#64748b] hover:text-[#0f172a] hover:border-[#e63946]/30 hover:bg-white/50 transition-all"
-            >
-              View Source
-              <ExternalLink className="w-4 h-4" />
-            </a>
           </div>
         </div>
 

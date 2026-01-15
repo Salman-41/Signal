@@ -91,58 +91,58 @@ export function DeepDiveSection({ signal, className }: DeepDiveSectionProps) {
             {/* Chart area */}
             <div className="lg:col-span-2">
               {/* View switcher */}
-              <div className="flex items-center gap-2 mb-6">
+              <div className="flex flex-wrap items-center gap-2 mb-6">
                 <button
                   onClick={() => setActiveView("indexed")}
                   className={cn(
-                    "px-4 py-2 rounded-lg text-sm font-medium transition-all",
+                    "px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-bold uppercase tracking-tight transition-all",
                     activeView === "indexed"
                       ? "bg-[#0f172a] text-white"
                       : "bg-[#cbd5e1]/30 text-[#64748b] hover:bg-[#cbd5e1]/50"
                   )}
                 >
-                  Indexed Trend
+                  Trend
                 </button>
                 <button
                   onClick={() => setActiveView("rate")}
                   className={cn(
-                    "px-4 py-2 rounded-lg text-sm font-medium transition-all",
+                    "px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-bold uppercase tracking-tight transition-all",
                     activeView === "rate"
                       ? "bg-[#0f172a] text-white"
                       : "bg-[#cbd5e1]/30 text-[#64748b] hover:bg-[#cbd5e1]/50"
                   )}
                 >
-                  Rate of Change
+                  ROC
                 </button>
                 <button
                   onClick={() => setActiveView("deviation")}
                   className={cn(
-                    "px-4 py-2 rounded-lg text-sm font-medium transition-all",
+                    "px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-bold uppercase tracking-tight transition-all",
                     activeView === "deviation"
                       ? "bg-[#0f172a] text-white"
                       : "bg-[#cbd5e1]/30 text-[#64748b] hover:bg-[#cbd5e1]/50"
                   )}
                 >
-                  Deviation from Mean
+                  Deviation
                 </button>
               </div>
 
               {/* Chart */}
-              <div className="bg-white/50 rounded-xl border border-[#cbd5e1]/50 p-6 md:p-8 backdrop-blur-sm">
+              <div className="bg-white/50 rounded-xl border border-[#cbd5e1]/50 p-4 md:p-8 backdrop-blur-sm">
                 <div className="mb-4">
-                  <h4 className="font-medium text-[#0f172a]">
+                  <h4 className="font-bold text-[#0f172a] text-sm md:text-base uppercase tracking-tight">
                     {activeView === "indexed"
                       ? "Historical Trend"
                       : activeView === "rate"
-                      ? "Rate of Change Over Time"
-                      : "Deviation from Historical Mean"}
+                      ? "Rate of Change"
+                      : "Deviation from Mean"}
                   </h4>
-                  <p className="text-sm text-[#64748b] mt-1">
+                  <p className="text-[10px] md:text-sm text-[#64748b] mt-1 font-mono uppercase opacity-60">
                     {activeView === "indexed"
-                      ? "Value trajectory over the observation period"
+                      ? "Trajectory over period"
                       : activeView === "rate"
-                      ? "Percent change between consecutive observations"
-                      : "How far each point deviates from the average"}
+                      ? "Percent change between points"
+                      : "Deviation from average"}
                   </p>
                 </div>
 
