@@ -52,7 +52,7 @@ export function StatsPanel({ data, currentValue, unit, className }: StatsPanelPr
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         {/* Min Value */}
         <div className="bg-[#f8fafc] rounded-xl p-4 border border-[#e2e8f0]">
           <div className="flex items-center gap-2 mb-2">
@@ -195,7 +195,7 @@ export function StatsPanel({ data, currentValue, unit, className }: StatsPanelPr
       </div>
 
       {/* Mean & Median */}
-      <div className="flex items-center justify-between text-sm border-t border-[#e2e8f0] pt-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 text-xs sm:text-sm border-t border-[#e2e8f0] pt-4">
         <div>
           <span className="text-[#94a3b8]">Mean:</span>{" "}
           <span className="font-medium text-[#0f172a] tabular-nums">{formatStatValue(stats.mean)} {unit}</span>

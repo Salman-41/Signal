@@ -83,31 +83,31 @@ export function GlobalNewsSection({ className }: GlobalNewsSectionProps) {
     <Section className={cn("py-16 md:py-24", className)} background="default">
       <Container>
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6 mb-8 sm:mb-10">
           <div>
-            <div className="flex items-center gap-3 mb-2 md:mb-3">
-              <Newspaper className="w-5 h-5 md:w-6 h-6 text-[#e63946]" />
-              <Heading as="h2" size="section" className="text-[#0f172a] text-2xl md:text-3xl lg:text-5xl">
+            <div className="flex items-center gap-2 sm:gap-3 mb-2">
+              <Newspaper className="w-5 h-5 sm:w-6 sm:h-6 text-[#e63946]" />
+              <Heading as="h2" size="section" className="text-[#0f172a] text-xl sm:text-2xl md:text-3xl lg:text-4xl">
                 Latest Signal News
               </Heading>
             </div>
-            <Text size="base" muted className="text-sm md:text-base">
+            <Text size="base" muted className="text-sm">
               Real-time headlines affecting global indicators
             </Text>
           </div>
           
-          <div className="flex items-center justify-between md:justify-end gap-3 md:gap-4 border-t border-[#cbd5e1]/40 pt-4 md:border-none md:pt-0">
+          <div className="flex items-center gap-3">
             {lastUpdated && (
-              <span className="text-[10px] md:text-xs text-[#94a3b8] font-mono">
+              <span className="text-[10px] sm:text-xs text-[#94a3b8] font-mono hidden sm:block">
                 REFRESHED: {formatRelativeTime(lastUpdated)}
               </span>
             )}
             <button
               onClick={loadAllNews}
               disabled={loading}
-              className="flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-lg border border-[#cbd5e1]/50 text-xs md:sm font-bold uppercase tracking-wider text-[#64748b] hover:text-[#0f172a] hover:border-[#e63946]/30 transition-all disabled:opacity-50"
+              className="flex items-center gap-2 px-3 py-1.5 sm:py-2 rounded-lg border border-[#cbd5e1]/50 text-xs font-bold uppercase tracking-wider text-[#64748b] hover:text-[#0f172a] hover:border-[#e63946]/30 transition-all disabled:opacity-50"
             >
-              <RefreshCw className={cn("w-3.5 h-3.5 md:w-4 h-4", loading && "animate-spin")} />
+              <RefreshCw className={cn("w-3.5 h-3.5 sm:w-4 sm:h-4", loading && "animate-spin")} />
               Sync
             </button>
           </div>
@@ -119,7 +119,7 @@ export function GlobalNewsSection({ className }: GlobalNewsSectionProps) {
             <Loader2 className="w-8 h-8 animate-spin text-[#e63946]" />
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {articles.map((article) => (
               <div
                 key={article.id}

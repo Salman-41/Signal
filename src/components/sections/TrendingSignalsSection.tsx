@@ -51,22 +51,22 @@ export function TrendingSignalsSection({ signals, className }: TrendingSignalsSe
     <Section className={cn("py-16 md:py-24 bg-gradient-to-b from-[#0f172a] to-[#1e293b]", className)}>
       <Container>
         {/* Header */}
-        <div className="flex items-center justify-between mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6 mb-8 sm:mb-10">
           <div>
-            <div className="flex items-center gap-3 mb-3">
-              <Flame className="w-6 h-6 text-[#e63946]" />
-              <Heading as="h2" size="section" className="text-white">
+            <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+              <Flame className="w-5 h-5 sm:w-6 sm:h-6 text-[#e63946]" />
+              <Heading as="h2" size="section" className="text-white text-2xl sm:text-3xl lg:text-4xl">
                 Trending Now
               </Heading>
             </div>
-            <Text size="base" className="text-white/60">
+            <Text size="base" className="text-white/60 text-sm sm:text-base">
               Signals with the most significant recent changes
             </Text>
           </div>
           
           <Link
             href="/#live-signals"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-sm font-medium text-white hover:bg-white/20 transition-all"
+            className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-xs sm:text-sm font-medium text-white hover:bg-white/20 transition-all w-full sm:w-auto"
           >
             View All
             <ArrowUpRight className="w-4 h-4" />
@@ -132,18 +132,18 @@ export function TrendingSignalsSection({ signals, className }: TrendingSignalsSe
         </div>
 
         {/* Heat Legend */}
-        <div className="flex items-center justify-center gap-8 mt-10 pt-6 border-t border-white/10">
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 mt-8 sm:mt-10 pt-6 border-t border-white/10">
           <div className="flex items-center gap-2">
-            <Zap className="w-4 h-4 text-emerald-500" />
-            <span className="text-xs text-white/50">Gaining</span>
+            <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-500" />
+            <span className="text-[10px] sm:text-xs text-white/50">Gaining</span>
           </div>
           <div className="flex items-center gap-2">
-            <TrendingDown className="w-4 h-4 text-amber-500" />
-            <span className="text-xs text-white/50">Declining</span>
+            <TrendingDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500" />
+            <span className="text-[10px] sm:text-xs text-white/50">Declining</span>
           </div>
           <div className="flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-red-500" />
-            <span className="text-xs text-white/50">High Volatility</span>
+            <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-500" />
+            <span className="text-[10px] sm:text-xs text-white/50">High Volatility</span>
           </div>
         </div>
       </Container>

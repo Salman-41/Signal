@@ -264,13 +264,27 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
         </div>
       </div>
 
-      <Container className="relative z-10 py-20 lg:py-0">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-16 items-center">
+      <Container className="relative z-10 py-12 sm:py-16 lg:py-0">
+        <div className="grid grid-cols-1 md:grid-cols-[1.2fr_0.8fr] gap-8 md:gap-12 lg:gap-16 items-center">
           {/* Left Side: Content - Taking up ~60% space */}
-          <div className="flex flex-col items-start text-left space-y-6 md:space-y-8 relative z-10 order-2 lg:order-1">
+          <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4 sm:space-y-6 md:space-y-8 relative z-10 order-2 md:order-1">
 
-            {/* Main Title */}
-            <h1 className="hero-animate-text text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[0.9] text-[#0f172a]">
+            {/* Main Title - Mobile Design (Optimized for vertical space) */}
+            <h1 className="hero-animate-text md:hidden flex flex-col items-center text-5xl sm:text-6xl font-medium tracking-tight leading-[1] text-[#0f172a] w-full">
+              <span>Decode</span>
+              <span className="italic text-[#e63946]">the Signals</span>
+              <span>of a</span>
+              <span className="relative inline-block mt-1">
+                Changing
+                <svg className="absolute -bottom-1 left-0 w-full" viewBox="0 0 100 10" preserveAspectRatio="none">
+                  <path d="M0,5 Q50,0 100,5" stroke="#64748b" strokeWidth="2" fill="none" opacity="0.3" />
+                </svg>
+              </span>
+              <span>World.</span>
+            </h1>
+
+            {/* Main Title - Desktop Design (Original Layout) */}
+            <h1 className="hero-animate-text hidden md:block text-5xl lg:text-7xl xl:text-8xl font-medium tracking-tight leading-[0.9] text-[#0f172a]">
               Decode the <span className="italic text-[#e63946]">Signals</span>
               <br />
               of a <span className="relative inline-block">
@@ -283,10 +297,10 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
             </h1>
 
             {/* Subtext */}
-            <div className="hero-animate-text max-w-2xl lg:max-w-3xl">
+            <div className="hero-animate-text max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto md:mx-0">
               <Text
                 size="xl"
-                className="text-[#475569] leading-relaxed font-medium opacity-80 text-lg md:text-xl"
+                className="text-[#475569] leading-relaxed font-medium opacity-80 text-base sm:text-lg md:text-lg lg:text-xl"
               >
                 Real-time trend intelligence across economy, climate, and technology.
                 We identify technical patterns in public data before they become headlines.
@@ -294,44 +308,44 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
             </div>
 
             {/* Compact Live Monitor (Two Lines) */}
-            <div className="hero-animate-text relative w-full max-w-lg pt-2 md:pt-4">
-              <div className="bg-white/40 backdrop-blur-xl border border-[#cbd5e1]/40 rounded-2xl p-4 md:p-5 shadow-xl overflow-hidden relative group">
+            <div className="hero-animate-text relative w-full max-w-xs sm:max-w-md md:max-w-lg pt-2 md:pt-4 mx-auto md:mx-0">
+              <div className="bg-white/40 backdrop-blur-xl border border-[#cbd5e1]/40 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 shadow-lg sm:shadow-xl overflow-hidden relative group">
                 {/* Metrics Line */}
-                <div className="flex flex-wrap items-center justify-between gap-4 mb-3 pb-3 border-b border-[#cbd5e1]/30">
-                  <div className="flex items-center gap-4 md:gap-6">
+                <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 mb-3 pb-3 border-b border-[#cbd5e1]/30">
+                  <div className="flex items-center gap-4 sm:gap-6 mx-auto sm:mx-0">
                     <div className="flex flex-col">
-                      <span className="text-[7px] md:text-[8px] font-bold text-[#64748b] uppercase tracking-tighter">Live_Signals</span>
-                      <span className="text-xs md:text-sm font-mono font-bold text-[#0f172a] tabular-nums">
+                      <span className="text-[7px] sm:text-[8px] md:text-[8px] font-bold text-[#64748b] uppercase tracking-tighter">Signals</span>
+                      <span className="text-xs sm:text-sm md:text-sm font-mono font-bold text-[#0f172a] tabular-nums">
                         {metrics.signals.toLocaleString()}
                       </span>
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-[7px] md:text-[8px] font-bold text-[#64748b] uppercase tracking-tighter">Integrity</span>
-                      <span className="text-xs md:text-sm font-mono font-bold text-emerald-600 tabular-nums">
+                      <span className="text-[7px] sm:text-[8px] md:text-[8px] font-bold text-[#64748b] uppercase tracking-tighter">Integrity</span>
+                      <span className="text-xs sm:text-sm md:text-sm font-mono font-bold text-emerald-600 tabular-nums">
                         {metrics.integrity}%
                       </span>
                     </div>
-                    <div className="flex flex-col">
-                      <span className="text-[7px] md:text-[8px] font-bold text-[#64748b] uppercase tracking-tighter">Latency</span>
-                      <span className="text-xs md:text-sm font-mono font-bold text-[#0f172a] tabular-nums">
+                    <div className="flex flex-col hidden sm:flex">
+                      <span className="text-[7px] sm:text-[8px] md:text-[8px] font-bold text-[#64748b] uppercase tracking-tighter">Latency</span>
+                      <span className="text-xs sm:text-sm md:text-sm font-mono font-bold text-[#0f172a] tabular-nums">
                         {metrics.speed}ms
                       </span>
                     </div>
                   </div>
-                  <div className="px-2 py-1 rounded bg-emerald-500/10 text-emerald-600 text-[8px] md:text-[9px] font-bold animate-pulse uppercase tracking-widest leading-none ml-auto">
+                  <div className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-emerald-500/10 text-emerald-600 text-[7px] sm:text-[8px] md:text-[9px] font-bold animate-pulse uppercase tracking-wider sm:tracking-widest leading-none ml-auto hidden sm:block">
                     Active
                   </div>
                 </div>
 
                 {/* Log Line */}
                 <div className="flex items-center gap-3">
-                  <span className="text-[7px] md:text-[8px] font-bold text-[#64748b] uppercase shrink-0">Feed_Stream</span>
-                  <div className="flex-1 bg-[#0f172a] rounded-lg px-3 py-1.5 font-mono text-[9px] md:text-[10px] text-emerald-500/80 flex items-center overflow-hidden h-7 md:h-8">
+                  <span className="text-[8px] md:text-[8px] font-bold text-[#64748b] uppercase shrink-0">Feed</span>
+                  <div className="flex-1 bg-[#0f172a] rounded-lg px-3 py-2 font-mono text-[10px] sm:text-[10px] md:text-[10px] text-emerald-500/80 flex items-center overflow-hidden h-8 sm:h-8 md:h-8">
                     {logs.map((log, i) => (
                       <div key={i} className="flex items-center gap-2 animate-in slide-in-from-bottom-1 duration-300 w-full">
                         <span className="opacity-40">{">"}</span>
-                        <span className="truncate">{log}</span>
-                        <span className="ml-auto opacity-40 text-[7px] md:text-[8px]">SYNC_OK</span>
+                        <span className="truncate text-[9px] sm:text-[10px] md:text-[10px]">{log}</span>
+                        <span className="ml-auto opacity-40 text-[8px] md:text-[8px] hidden sm:block">OK</span>
                       </div>
                     ))}
                   </div>
@@ -341,7 +355,7 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
           </div>
 
           {/* Right Side: Signal Cards - Repositioned into their own place */}
-          <div className="relative flex flex-col gap-6 lg:items-end justify-center order-1 lg:order-2">
+          <div className="relative hidden md:flex flex-col gap-4 md:gap-5 lg:gap-6 md:items-end justify-center order-1 md:order-2">
             {featuredSignals.map((signal, idx) => {
               const TrendIcon =
                 signal.trend === "up"
@@ -362,40 +376,39 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
                   key={signal.id}
                   href={`/signals/${signal.id}`}
                   className={cn(
-                    "hero-animate-card group relative bg-white/60 p-4 md:p-5 rounded-2xl md:rounded-3xl border border-[#cbd5e1]/40 shadow-xl backdrop-blur-md flex items-center gap-4 md:gap-6 overflow-hidden max-w-[340px] md:max-w-md w-full transition-all duration-700 hover:bg-white/80 hover:shadow-2xl hover:border-[#e63946]/40 hover:-translate-y-2",
-                    idx === 1 && "lg:translate-x-8",
-                    idx === 2 && "lg:translate-x-4",
-                    idx !== 0 && "hidden md:flex" // Hide secondary cards on mobile for cleaner look
+                    "hero-animate-card group relative bg-white/60 p-3 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl md:rounded-3xl border border-[#cbd5e1]/40 shadow-lg md:shadow-xl backdrop-blur-md flex items-center gap-3 sm:gap-4 md:gap-6 overflow-hidden max-w-[280px] sm:max-w-[320px] md:max-w-md w-full transition-all duration-700 hover:bg-white/80 hover:shadow-2xl hover:border-[#e63946]/40 hover:-translate-y-2",
+                    idx === 1 && "md:translate-x-4 lg:translate-x-8",
+                    idx === 2 && "md:translate-x-2 lg:translate-x-4"
                   )}
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-[#e63946]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   <div className="relative flex flex-col items-start flex-1 min-w-0">
-                    <Label className="text-[#64748b] text-[9px] md:text-[10px] uppercase tracking-widest font-bold">
+                    <Label className="text-[#64748b] text-[8px] sm:text-[9px] md:text-[10px] uppercase tracking-widest font-bold">
                       {signal.category}
                     </Label>
-                    <span className="text-[#0f172a] font-medium text-base md:text-lg mt-1 truncate w-full">
+                    <span className="text-[#0f172a] font-medium text-sm sm:text-base md:text-lg mt-0.5 sm:mt-1 truncate w-full">
                       {signal.title}
                     </span>
-                    <span className="text-[#64748b]/60 text-[10px] md:text-xs mt-0.5 truncate w-full">
+                    <span className="text-[#64748b]/60 text-[9px] sm:text-[10px] md:text-xs mt-0.5 truncate w-full hidden sm:block">
                       {signal.subtitle}
                     </span>
                   </div>
 
-                  <div className="relative h-10 md:h-12 w-px bg-[#cbd5e1]/30 mx-1 md:mx-2" />
+                  <div className="relative h-8 sm:h-10 md:h-12 w-px bg-[#cbd5e1]/30 mx-1 md:mx-2" />
 
                   <div className="relative flex flex-col items-end shrink-0 font-mono">
-                    <div className={cn("flex items-center gap-1.5", trendColor)}>
-                      <TrendIcon className="w-3.5 h-3.5 md:w-4 h-4" />
-                      <span className="text-xs md:text-sm font-bold tracking-tight">
+                    <div className={cn("flex items-center gap-1 sm:gap-1.5", trendColor)}>
+                      <TrendIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4" />
+                      <span className="text-[10px] sm:text-xs md:text-sm font-bold tracking-tight">
                         {signal.changePercent > 0 ? "+" : ""}{signal.changePercent}%
                       </span>
                     </div>
-                    <div className="flex items-baseline gap-1 mt-1">
-                      <span className="text-[#0f172a] text-xl md:text-2xl font-bold tracking-tight">
+                    <div className="flex items-baseline gap-0.5 sm:gap-1 mt-0.5 sm:mt-1">
+                      <span className="text-[#0f172a] text-base sm:text-xl md:text-2xl font-bold tracking-tight">
                         {signal.currentValue}
                       </span>
-                      <span className="text-[#64748b] text-xs md:text-sm font-medium">
+                      <span className="text-[#64748b] text-[10px] sm:text-xs md:text-sm font-medium">
                         {signal.unit}
                       </span>
                     </div>
@@ -404,10 +417,10 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
               );
             })}
             
-            {/* Mobile-only View More Indicator */}
-            <div className="flex md:hidden items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#64748b]/60">
+            {/* Tablet-only View More Indicator */}
+            <div className="flex lg:hidden items-center justify-center gap-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-[#64748b]/60 mt-2">
               <Activity className="w-3 h-3" />
-              Monitoring Live Feed Below
+              Live Feed Below
             </div>
           </div>
         </div>

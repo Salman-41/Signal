@@ -203,11 +203,11 @@ export function SignalCard({
 
         {/* Title and subtitle */}
         <div className="mb-4 md:mb-6">
-          <h3 className="text-xl sm:text-2xl md:text-3xl font-medium text-[#0f172a] tracking-tight leading-tight">
+          <h3 className="text-2xl sm:text-2xl md:text-3xl font-medium text-[#0f172a] tracking-tight leading-tight">
             {signal.title}
           </h3>
           {signal.subtitle && (
-            <p className="text-xs md:text-base text-[#64748b] mt-1 md:mt-2">
+            <p className="text-sm md:text-base text-[#64748b] mt-1.5 md:mt-2">
               {signal.subtitle}
             </p>
           )}
@@ -216,18 +216,18 @@ export function SignalCard({
         {/* Value and change */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
           <div>
-            <DataValue size="2xl" trend={signal.trend} className="text-3xl md:text-5xl">
+            <DataValue size="2xl" trend={signal.trend} className="text-4xl sm:text-5xl md:text-5xl">
               {signal.currentValue}
               <span className="text-xl md:text-2xl ml-1 text-[#64748b] font-normal">
                 {signal.unit}
               </span>
             </DataValue>
-            <div className={cn("flex items-center gap-2 mt-2", trendColor)}>
+            <div className={cn("flex items-center gap-2 mt-2.5 sm:mt-2", trendColor)}>
               <TrendIcon className="w-4 h-4 md:w-5 md:h-5" />
               <span className="text-base md:text-lg font-bold tabular-nums">
                 {formatPercent(signal.changePercent)}
               </span>
-              <span className="text-[#cbd5e1] text-[10px] md:text-sm font-mono tracking-tighter uppercase">vs previous</span>
+              <span className="text-[#cbd5e1] text-[11px] md:text-sm font-mono tracking-tighter uppercase">vs previous</span>
             </div>
           </div>
 
@@ -254,7 +254,7 @@ export function SignalCard({
 
         {/* Interpretation */}
         <div className="pt-4 md:pt-6 border-t border-[#cbd5e1]/50">
-          <Text size="sm" className="text-[#0f172a]/80 text-[13px] md:text-sm leading-relaxed">
+          <Text size="sm" className="text-[#0f172a]/80 text-[14px] md:text-sm leading-relaxed">
             {signal.interpretation.whatItMeans}
           </Text>
         </div>
@@ -262,7 +262,7 @@ export function SignalCard({
         {/* Anomaly badge */}
         {signal.anomalies && signal.anomalies.length > 0 && (
           <div className="mt-4 flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[9px] md:text-xs font-bold bg-[#e63946]/5 text-[#e63946] rounded-full border border-[#e63946]/20 uppercase tracking-widest">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[10px] md:text-xs font-bold bg-[#e63946]/5 text-[#e63946] rounded-full border border-[#e63946]/20 uppercase tracking-widest">
               <span className="w-1.5 h-1.5 bg-[#e63946] rounded-full animate-pulse" />
               {signal.anomalies[0].description}
             </span>

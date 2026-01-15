@@ -78,13 +78,13 @@ export function QuickStatsSection({ signals, className }: QuickStatsSectionProps
       <Container>
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-3 mb-3">
-            <BarChart3 className="w-6 h-6 text-[#e63946]" />
-            <Heading as="h2" size="section" className="text-[#0f172a]">
+          <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+            <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 text-[#e63946]" />
+            <Heading as="h2" size="section" className="text-[#0f172a] text-2xl sm:text-3xl md:text-3xl lg:text-4xl">
               Market Pulse
             </Heading>
           </div>
-          <Text size="base" muted className="max-w-2xl mx-auto">
+          <Text size="base" muted className="max-w-2xl mx-auto text-sm sm:text-base">
             Real-time overview of signal movements and market sentiment
           </Text>
         </div>
@@ -93,46 +93,46 @@ export function QuickStatsSection({ signals, className }: QuickStatsSectionProps
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12">
           {/* Total Signals */}
           <div className="p-5 md:p-6 rounded-2xl bg-white border border-[#e2e8f0] shadow-sm">
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-2 sm:mb-3">
               <Activity className="w-4 h-4 md:w-5 h-5 text-[#64748b]" />
               <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-[#64748b]">
                 Active Signals
               </span>
             </div>
-            <div className="text-3xl md:text-4xl font-bold text-[#0f172a]">{stats.total}</div>
+            <div className="text-4xl sm:text-4xl md:text-4xl font-bold text-[#0f172a] tracking-tight">{stats.total}</div>
           </div>
 
           {/* Rising */}
           <div className="p-5 md:p-6 rounded-2xl bg-emerald-50 border border-emerald-200">
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-2 sm:mb-3">
               <TrendingUp className="w-4 h-4 md:w-5 h-5 text-emerald-600" />
               <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-emerald-600">
                 Rising
               </span>
             </div>
-            <div className="text-3xl md:text-4xl font-bold text-emerald-700">{stats.up}</div>
+            <div className="text-4xl sm:text-4xl md:text-4xl font-bold text-emerald-700 tracking-tight">{stats.up}</div>
           </div>
 
           {/* Declining */}
           <div className="p-5 md:p-6 rounded-2xl bg-red-50 border border-red-200">
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-2 sm:mb-3">
               <TrendingDown className="w-4 h-4 md:w-5 h-5 text-red-600" />
               <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-red-600">
                 Declining
               </span>
             </div>
-            <div className="text-3xl md:text-4xl font-bold text-red-700">{stats.down}</div>
+            <div className="text-4xl sm:text-4xl md:text-4xl font-bold text-red-700 tracking-tight">{stats.down}</div>
           </div>
 
           {/* Avg Change */}
           <div className="p-5 md:p-6 rounded-2xl bg-white border border-[#e2e8f0] shadow-sm">
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-2 sm:mb-3">
               <Activity className="w-4 h-4 md:w-5 h-5 text-[#64748b]" />
               <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-[#64748b]">
                 Avg Change
               </span>
             </div>
-            <div className="text-3xl md:text-4xl font-bold text-[#0f172a]">±{stats.avgChange}%</div>
+            <div className="text-4xl sm:text-4xl md:text-4xl font-bold text-[#0f172a] tracking-tight">±{stats.avgChange}%</div>
           </div>
         </div>
 

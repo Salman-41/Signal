@@ -492,33 +492,33 @@ export function SignalDetailSection({
             {/* Chart area */}
             <div className="detail-animate bg-white/60 backdrop-blur-xl border border-[#cbd5e1]/40 rounded-2xl p-6 md:p-8 shadow-lg">
               {/* View switcher */}
-              <div className="flex items-center gap-2 mb-6">
+              <div className="flex flex-wrap items-center gap-2 mb-4 sm:mb-6">
                 <button
                   onClick={() => setActiveView("indexed")}
                   className={cn(
-                    "px-4 py-2 rounded-lg text-sm font-medium transition-all",
+                    "px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all",
                     activeView === "indexed"
                       ? "bg-[#0f172a] text-white"
                       : "bg-[#cbd5e1]/30 text-[#64748b] hover:bg-[#cbd5e1]/50"
                   )}
                 >
-                  Indexed Trend
+                  Indexed
                 </button>
                 <button
                   onClick={() => setActiveView("rate")}
                   className={cn(
-                    "px-4 py-2 rounded-lg text-sm font-medium transition-all",
+                    "px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all",
                     activeView === "rate"
                       ? "bg-[#0f172a] text-white"
                       : "bg-[#cbd5e1]/30 text-[#64748b] hover:bg-[#cbd5e1]/50"
                   )}
                 >
-                  Rate of Change
+                  Rate
                 </button>
                 <button
                   onClick={() => setActiveView("deviation")}
                   className={cn(
-                    "px-4 py-2 rounded-lg text-sm font-medium transition-all",
+                    "px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all",
                     activeView === "deviation"
                       ? "bg-[#0f172a] text-white"
                       : "bg-[#cbd5e1]/30 text-[#64748b] hover:bg-[#cbd5e1]/50"
@@ -529,16 +529,16 @@ export function SignalDetailSection({
               </div>
 
               {/* Chart header */}
-              <div className="mb-6">
-                <h3 className="text-lg font-medium text-[#0f172a]">
+              <div className="mb-4 sm:mb-6">
+                <h3 className="text-base sm:text-lg font-medium text-[#0f172a]">
                   {activeView === "indexed"
                     ? "Historical Trend"
                     : activeView === "rate"
-                    ? "Rate of Change Over Time"
-                    : "Deviation from Historical Mean"}
+                    ? "Rate of Change"
+                    : "Deviation from Mean"}
                   {isCountryEnabled && ` — ${selectedCountry.name}`}
                 </h3>
-                <p className="text-sm text-[#64748b] mt-1">
+                <p className="text-xs sm:text-sm text-[#64748b] mt-1">
                   {activeView === "indexed"
                     ? "Value trajectory over the observation period"
                     : activeView === "rate"
@@ -548,7 +548,7 @@ export function SignalDetailSection({
               </div>
 
               {/* Chart */}
-              <div className="h-56 md:h-72 bg-[#f8fafc] rounded-xl p-4 border border-[#e2e8f0] relative">
+              <div className="h-48 sm:h-56 md:h-72 bg-[#f8fafc] rounded-lg sm:rounded-xl p-2 sm:p-4 border border-[#e2e8f0] relative">
                 {isLoadingCountryData && (
                   <div className="absolute inset-0 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
                     <div className="flex items-center gap-3 text-[#64748b]">

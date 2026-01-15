@@ -113,40 +113,40 @@ export function MethodologySection({ className }: MethodologySectionProps) {
     >
       <Container>
         {/* Header */}
-        <div className="mb-16">
-          <Label variant="muted" className="text-[#64748b] mb-4">
+        <div className="mb-10 sm:mb-12 md:mb-16">
+          <Label variant="muted" className="text-[#64748b] mb-3 sm:mb-4">
             Methodology
           </Label>
-            <Heading as="h2" size="section" className="text-[#0f172a]">
+            <Heading as="h2" size="section" className="text-[#0f172a] text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
               How we detect signals
             </Heading>
-            <Text size="lg" className="text-[#475569] mt-4 max-w-2xl mx-auto">
+            <Text size="lg" className="text-[#475569] mt-3 sm:mt-4 max-w-xl md:max-w-2xl mx-auto text-sm sm:text-base md:text-lg">
               Our platform processes raw public data to identify significant
               shifts before they become part of the dominant narrative.
             </Text>
         </div>
 
         {/* Principles - Staggered Intelligence Process */}
-        <div className="space-y-24 mb-32">
+        <div className="space-y-12 sm:space-y-16 md:space-y-24 mb-16 sm:mb-24 md:mb-32">
           {principles.map((principle, index) => (
             <div 
               key={index}
               className={cn(
-                "methodology-item flex flex-col md:flex-row items-center gap-12 lg:gap-20",
+                "methodology-item flex flex-col md:flex-row items-center gap-6 sm:gap-8 md:gap-12 lg:gap-20",
                 index % 2 === 1 && "md:flex-row-reverse"
               )}
             >
-              <div className="flex-1 space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#0f172a] text-white text-xs font-mono font-bold">
+              <div className="flex-1 space-y-4 sm:space-y-6">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#0f172a] text-white text-[10px] sm:text-xs font-mono font-bold">
                     0{index + 1}
                   </div>
                   <div className="h-px flex-1 bg-gradient-to-r from-[#cbd5e1]/50 to-transparent" />
                 </div>
-                <h3 className="text-3xl md:text-4xl font-medium text-[#0f172a] tracking-tight">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-medium text-[#0f172a] tracking-tight">
                   {principle.title}
                 </h3>
-                <Text size="lg" className="text-[#475569] leading-relaxed max-w-xl">
+                <Text size="lg" className="text-[#475569] leading-relaxed max-w-xl text-sm sm:text-base md:text-lg">
                   {principle.description}
                 </Text>
                 
@@ -304,17 +304,17 @@ export function MethodologySection({ className }: MethodologySectionProps) {
           ))}
         </div>
 
-        <div className="relative mt-32 p-12 lg:p-16 rounded-[2.5rem] bg-[#0f172a] overflow-hidden">
+        <div className="relative mt-16 sm:mt-24 md:mt-32 p-6 sm:p-8 md:p-12 lg:p-16 rounded-2xl md:rounded-[2.5rem] bg-[#0f172a] overflow-hidden">
           {/* Background Technical Element */}
-          <div className="absolute top-0 right-0 p-8 text-[120px] font-black text-white/[0.03] select-none leading-none tracking-tighter">
+          <div className="absolute top-0 right-0 p-4 sm:p-8 text-[60px] sm:text-[80px] md:text-[100px] lg:text-[120px] font-black text-white/[0.03] select-none leading-none tracking-tighter">
             DATA
           </div>
           
-          <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-16">
+          <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-8 sm:gap-10 md:gap-12 mb-10 sm:mb-12 md:mb-16">
             <div>
-              <Label variant="accent" className="bg-[#e63946]/10 text-[#e63946] mb-6">Network Atlas</Label>
-              <h3 className="text-4xl md:text-5xl font-medium text-white tracking-tight">Data Sources</h3>
-              <Text size="lg" className="text-white/60 mt-4 max-w-xl">
+              <Label variant="accent" className="bg-[#e63946]/10 text-[#e63946] mb-4 sm:mb-6">Network Atlas</Label>
+              <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-tight">Data Sources</h3>
+              <Text size="lg" className="text-white/60 mt-3 sm:mt-4 max-w-xl text-sm sm:text-base">
                 We maintain active pipelines to these primary data providers and 40+ secondary indices.
               </Text>
             </div>
@@ -330,7 +330,7 @@ export function MethodologySection({ className }: MethodologySectionProps) {
             </div>
           </div>
 
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {dataSources.map((source, index) => (
               <a
                 key={index}
@@ -363,26 +363,22 @@ export function MethodologySection({ className }: MethodologySectionProps) {
         </div>
 
         {/* Disclaimer */}
-        <div className="mt-12 p-8 rounded-2xl bg-white border border-[#cbd5e1]/50 shadow-sm relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-          <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6">
-            <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center shrink-0">
-              <AlertTriangle className="w-6 h-6 text-amber-600" />
+        <div className="mt-8 sm:mt-10 md:mt-12 p-4 sm:p-6 md:p-8 rounded-xl md:rounded-2xl bg-white border border-[#cbd5e1]/50 shadow-sm relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 bg-amber-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          <div className="relative z-10 flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-amber-500/10 flex items-center justify-center shrink-0">
+              <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-amber-600" />
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <h4 className="font-bold text-amber-900 text-sm uppercase tracking-widest">
+                <h4 className="font-bold text-amber-900 text-xs sm:text-sm uppercase tracking-widest">
                   Legal Protocol
                 </h4>
-                <div className="h-px w-8 bg-amber-200" />
+                <div className="h-px w-4 sm:w-8 bg-amber-200" />
               </div>
-              <p className="text-sm font-body leading-relaxed text-[#475569] max-w-4xl">
+              <p className="text-xs sm:text-sm font-body leading-relaxed text-[#475569] max-w-4xl">
                 This platform provides informational signals based on publicly available data. It is not financial, investment, or professional advice. Signals may be delayed, incomplete, or subject to API limitations. Always verify important data from primary sources and consult qualified professionals for decisions.
               </p>
-            </div>
-            <div className="shrink-0 flex flex-col items-end gap-1">
-              <div className="text-[8px] font-mono text-[#64748b] uppercase tracking-tighter">DISCLAIMER_HASH</div>
-              <div className="text-[10px] font-mono text-[#0f172a] font-bold">SHA-256: 8f4e2...</div>
             </div>
           </div>
         </div>
