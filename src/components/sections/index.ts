@@ -3,3 +3,4 @@ export * from "./LiveSignalsSection";
 export * from "./DeepDiveSection";
 export * from "./ComparisonSection";
 export * from "./MethodologySection";
+export * from "./SignalDetailSection";

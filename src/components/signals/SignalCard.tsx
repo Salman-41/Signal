@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { formatPercent } from "@/lib/utils";
 import { Signal, CATEGORY_META } from "@/lib/signals/types";
@@ -15,6 +16,7 @@ interface SignalCardProps {
   animationDelay?: number;
   showSparkline?: boolean;
   onClick?: () => void;
+  href?: string;
 }
 
 export function SignalCard({
@@ -24,6 +26,7 @@ export function SignalCard({
   animationDelay = 0,
   showSparkline = true,
   onClick,
+  href,
 }: SignalCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const sparklineRef = useRef<SVGSVGElement>(null);
@@ -266,7 +269,7 @@ export function SignalCard({
   }
 
   // Default variant
-  return (
+  const cardContent = (
     <div
       ref={cardRef}
       className={cn(
@@ -275,7 +278,7 @@ export function SignalCard({
         "cursor-pointer",
         className
       )}
-      onClick={onClick}
+      onClick={!href ? onClick : undefined}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -336,4 +339,10 @@ export function SignalCard({
       )}
     </div>
   );
+
+  if (href) {
+    return <Link href={href}>{cardContent}</Link>;
+  }
+
+  return cardContent;
 }

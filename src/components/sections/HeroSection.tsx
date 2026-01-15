@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/layout/Section";
 import {
@@ -358,8 +359,9 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
                   : "text-[#94a3b8]";
 
               return (
-                <div 
+                <Link 
                   key={signal.id}
+                  href={`/signals/${signal.id}`}
                   className={cn(
                     "hero-animate-card group relative bg-white/60 p-5 rounded-3xl border border-[#cbd5e1]/40 shadow-xl backdrop-blur-md flex items-center gap-6 overflow-hidden max-w-[340px] md:max-w-md w-full transition-all duration-700 hover:bg-white/80 hover:shadow-2xl hover:border-[#e63946]/40 hover:-translate-y-2",
                     idx === 1 && "lg:translate-x-8",
@@ -398,7 +400,7 @@ export function HeroSection({ signals, className }: HeroSectionProps) {
                       </span>
                     </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

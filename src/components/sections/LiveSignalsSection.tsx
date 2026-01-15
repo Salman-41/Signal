@@ -133,6 +133,7 @@ export function LiveSignalsSection({
                       variant="default"
                       animationDelay={0}
                       className="signal-card-item"
+                      href={`/signals/${signal.id}`}
                     />
                   ))}
                 </Grid>
