@@ -19,6 +19,11 @@ import {
   DeviationChart,
   RateOfChangeChart,
 } from "@/components/charts";
+import { StatsPanel } from "@/components/signals/StatsPanel";
+import { EventsTimeline } from "@/components/signals/EventsTimeline";
+import { ExportPanel } from "@/components/signals/ExportPanel";
+import { NewsPanel } from "@/components/signals/NewsPanel";
+import { ForecastPanel } from "@/components/signals/ForecastPanel";
 import {
   TrendingUp,
   TrendingDown,
@@ -482,6 +487,11 @@ export function SignalDetailSection({
                 </div>
               </div>
             </div>
+
+            {/* Events Timeline */}
+            <div className="detail-animate mt-6 bg-white/60 backdrop-blur-xl border border-[#cbd5e1]/40 rounded-2xl p-6 shadow-lg">
+              <EventsTimeline signalId={signal.id} maxEvents={4} />
+            </div>
           </div>
 
           {/* Right column - Charts and interpretation */}
@@ -617,6 +627,38 @@ export function SignalDetailSection({
                 </Text>
               </div>
             )}
+
+            {/* Statistical Analysis */}
+            <div className="detail-animate bg-white/60 backdrop-blur-xl border border-[#cbd5e1]/40 rounded-2xl p-6 md:p-8 shadow-lg">
+              <StatsPanel 
+                data={chartData} 
+                currentValue={currentVal} 
+                unit={signal.unit} 
+              />
+            </div>
+
+            {/* Export & Share */}
+            <div className="detail-animate bg-white/60 backdrop-blur-xl border border-[#cbd5e1]/40 rounded-2xl p-6 shadow-lg">
+              <ExportPanel 
+                signalId={signal.id}
+                signalTitle={signal.title}
+                data={chartData}
+              />
+            </div>
+
+            {/* Related News */}
+            <div className="detail-animate bg-white/60 backdrop-blur-xl border border-[#cbd5e1]/40 rounded-2xl p-6 shadow-lg">
+              <NewsPanel signalId={signal.id} maxArticles={3} />
+            </div>
+
+            {/* Trend Forecast */}
+            <div className="detail-animate bg-white/60 backdrop-blur-xl border border-[#cbd5e1]/40 rounded-2xl p-6 shadow-lg">
+              <ForecastPanel 
+                data={chartData}
+                currentValue={currentVal}
+                unit={signal.unit}
+              />
+            </div>
 
             {/* Related signals */}
             {relatedSignals.length > 0 && (
