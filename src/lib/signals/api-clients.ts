@@ -151,3 +151,71 @@ export function getDataSourceInfo(signalId: string): {
   
   return sourceMap[signalId] || { name: "Unknown", frequency: "Unknown", hasRealTimeAPI: false };
 }
+
+// Fetch signal data for a specific country
+export async function fetchSignalDataForCountry(
+  signalId: string,
+  countryCode: string
+): Promise<DataPoint[] | null> {
+  // Import dynamically to avoid circular dependency
+  const { getFREDSeriesForCountry } = await import("./countries");
+  
+  const seriesId = getFREDSeriesForCountry(signalId, countryCode);
+  
+  if (!seriesId) {
+    console.warn(`No series ID found for signal ${signalId} and country ${countryCode}`);
+    return null;
+  }
+  
+  // Try to fetch real data
+  const data = await fetchFREDData(seriesId);
+  
+  if (data.length > 0) {
+    return data;
+  }
+  
+  // Generate mock data for demo purposes when API is not configured
+  // Each country gets unique data based on country code hash
+  return generateMockCountryData(signalId, countryCode);
+}
+
+// Generate unique mock data per country for demonstration
+function generateMockCountryData(signalId: string, countryCode: string): DataPoint[] {
+  const points: DataPoint[] = [];
+  const now = new Date();
+  
+  // Create a simple hash from country code to vary the data
+  const countryHash = countryCode.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  
+  // Base values per signal type (approximate real-world ranges)
+  const baseValues: Record<string, { base: number; variance: number; trend: number }> = {
+    "gdp-growth": { base: 2.5, variance: 3, trend: 0.1 },
+    "inflation-cpi": { base: 3.0, variance: 5, trend: 0.2 },
+    "unemployment": { base: 5.0, variance: 4, trend: -0.05 },
+    "consumer-sentiment": { base: 70, variance: 20, trend: 0.5 },
+  };
+  
+  const config = baseValues[signalId] || { base: 100, variance: 10, trend: 0 };
+  
+  // Modify base by country hash to make each country unique
+  const countryModifier = ((countryHash % 100) - 50) / 100; // -0.5 to +0.5
+  const adjustedBase = config.base * (1 + countryModifier * 0.5);
+  
+  // Generate 30 data points (monthly data for 2.5 years)
+  for (let i = 29; i >= 0; i--) {
+    const date = new Date(now);
+    date.setMonth(date.getMonth() - i);
+    
+    // Add some randomness + trend
+    const randomFactor = (Math.sin(i * 0.5 + countryHash) + 1) / 2; // 0 to 1
+    const trendFactor = (30 - i) * config.trend * (countryHash % 2 === 0 ? 1 : -0.5);
+    const value = adjustedBase + (randomFactor - 0.5) * config.variance + trendFactor;
+    
+    points.push({
+      date,
+      value: Math.round(value * 100) / 100,
+    });
+  }
+  
+  return points;
+}

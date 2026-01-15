@@ -1,13 +1,19 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { formatPercent } from "@/lib/utils";
 import { Section, Container } from "@/components/layout/Section";
 import { Heading, Text, Label } from "@/components/layout/Typography";
-import { Signal, CATEGORY_META } from "@/lib/signals/types";
-import { getDataSourceInfo } from "@/lib/signals/api-clients";
+import { Signal, CATEGORY_META, DataPoint } from "@/lib/signals/types";
+import { getDataSourceInfo, fetchSignalDataForCountry } from "@/lib/signals/api-clients";
+import { 
+  getCountriesForSignal, 
+  getDefaultCountry, 
+  COUNTRY_ENABLED_SIGNALS,
+  Country 
+} from "@/lib/signals/countries";
 import {
   SparklineChart,
   DeviationChart,
@@ -19,12 +25,15 @@ import {
   Minus,
   ArrowLeft,
   ExternalLink,
-  Clock,
   Database,
   Activity,
   RefreshCw,
   AlertCircle,
   CheckCircle,
+  Globe,
+  ChevronDown,
+  Loader2,
+  Search,
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -47,12 +56,27 @@ export function SignalDetailSection({
   const sectionRef = useRef<HTMLElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
+  const countryDropdownRef = useRef<HTMLDivElement>(null);
   
+  // Country selection state
   const [activeView, setActiveView] = useState<"indexed" | "rate" | "deviation">("indexed");
   const [isDataLive, setIsDataLive] = useState(true);
+  const availableCountries = getCountriesForSignal(signal.id);
+  const isCountryEnabled = COUNTRY_ENABLED_SIGNALS.includes(signal.id);
+  const [selectedCountry, setSelectedCountry] = useState<Country>(getDefaultCountry());
+  const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [countryData, setCountryData] = useState<DataPoint[] | null>(null);
+  const [isLoadingCountryData, setIsLoadingCountryData] = useState(false);
+  const [countryDataError, setCountryDataError] = useState<string | null>(null);
 
   const categoryMeta = CATEGORY_META[signal.category];
   const sourceInfo = getDataSourceInfo(signal.id);
+
+  const filteredCountries = availableCountries.filter(c => 
+    c.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    c.code.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   // Animate entrance
   useEffect(() => {
@@ -86,35 +110,104 @@ export function SignalDetailSection({
     return () => ctx.revert();
   }, []);
 
+  // Fetch country-specific data when country changes
+  useEffect(() => {
+    if (!isCountryEnabled) return;
+    
+    const fetchData = async () => {
+      setIsLoadingCountryData(true);
+      setCountryDataError(null);
+      
+      try {
+        const data = await fetchSignalDataForCountry(signal.id, selectedCountry.code);
+        if (data) {
+          setCountryData(data);
+          setIsDataLive(true);
+        } else {
+          // Fallback to mock data
+          setCountryData(null);
+          setIsDataLive(false);
+          setCountryDataError("Using cached data");
+        }
+      } catch (error) {
+        console.error("Failed to fetch country data:", error);
+        setCountryData(null);
+        setIsDataLive(false);
+        setCountryDataError("Failed to load data");
+      } finally {
+        setIsLoadingCountryData(false);
+      }
+    };
+    
+    fetchData();
+  }, [signal.id, selectedCountry.code, isCountryEnabled]);
+
+  // Click outside to close dropdown
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (countryDropdownRef.current && !countryDropdownRef.current.contains(event.target as Node)) {
+        setIsCountryDropdownOpen(false);
+      }
+    }
+    
+    if (isCountryDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isCountryDropdownOpen]);
+
+  // Handle country selection
+  const handleCountrySelect = useCallback((country: Country) => {
+    setSelectedCountry(country);
+    setIsCountryDropdownOpen(false);
+  }, []);
+
+  // Use country-specific data if available, otherwise use signal's sparkline
+  const chartData = countryData || signal.sparklineHistory;
+  
+  // Calculate dynamic metrics from chartData
+  const latestPoint = chartData[chartData.length - 1];
+  const previousPoint = chartData[chartData.length - 2] || latestPoint;
+  
+  const currentVal = latestPoint?.value ?? signal.currentValue;
+  const prevVal = previousPoint?.value ?? signal.previousValue;
+  const currentChange = currentVal - prevVal;
+  const currentChangePercent = prevVal !== 0 ? (currentChange / prevVal) * 100 : 0;
+  
+  const currentTrend = currentChange > 0 ? "up" : currentChange < 0 ? "down" : "stable";
+
   // Calculate baseline for deviation view
-  const values = signal.sparklineHistory.map((d) => d.value);
+  const values = chartData.map((d) => d.value);
   const baseline = values.reduce((a, b) => a + b, 0) / values.length;
 
   const TrendIcon =
-    signal.trend === "up"
+    currentTrend === "up"
       ? TrendingUp
-      : signal.trend === "down"
+      : currentTrend === "down"
       ? TrendingDown
       : Minus;
 
   const trendColor =
-    signal.trend === "up"
+    currentTrend === "up"
       ? "text-[#e63946]"
-      : signal.trend === "down"
+      : currentTrend === "down"
       ? "text-[#64748b]"
       : "text-[#cbd5e1]";
 
   const chartColor =
-    signal.trend === "up"
+    currentTrend === "up"
       ? "#e63946"
-      : signal.trend === "down"
+      : currentTrend === "down"
       ? "#475569"
       : "#0f172a";
 
   return (
     <Section
       ref={sectionRef}
-      className={cn("relative min-h-screen py-8 md:py-12 overflow-hidden", className)}
+      className={cn("relative min-h-screen py-8 md:py-12", className)}
       background="default"
     >
       {/* Background effects */}
@@ -157,7 +250,7 @@ export function SignalDetailSection({
         </div>
 
         {/* Hero Header */}
-        <div ref={heroRef} className="detail-animate mb-12">
+        <div ref={heroRef} className="detail-animate mb-12 relative z-30">
           <div className="flex items-start justify-between gap-6 flex-wrap">
             <div>
               {/* Category badge */}
@@ -171,9 +264,9 @@ export function SignalDetailSection({
                 <span
                   className={cn(
                     "w-2 h-2 rounded-full",
-                    signal.trend === "up"
+                    currentTrend === "up"
                       ? "bg-[#e63946]"
-                      : signal.trend === "down"
+                      : currentTrend === "down"
                       ? "bg-[#457b9d]"
                       : "bg-[#a8dadc]"
                   )}
@@ -181,15 +274,94 @@ export function SignalDetailSection({
                 {categoryMeta.label}
               </div>
 
-              {/* Title */}
-              <Heading as="h1" size="hero" className="text-[#0f172a] tracking-tight">
-                {signal.title}
-              </Heading>
-              {signal.subtitle && (
-                <Text size="lg" muted className="mt-2">
-                  {signal.subtitle}
-                </Text>
-              )}
+              {/* Title & Country Selector */}
+              <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
+                <div>
+                  <Heading as="h1" size="hero" className="text-[#0f172a] tracking-tight">
+                    {signal.title}
+                  </Heading>
+                  {signal.subtitle && (
+                    <Text size="lg" muted className="mt-2 text-[#64748b]">
+                      {signal.subtitle}
+                    </Text>
+                  )}
+                </div>
+
+                {/* Top Country Selector */}
+                {isCountryEnabled && availableCountries.length > 0 && (
+                  <div ref={countryDropdownRef} className="relative mb-2 z-50">
+                    <button
+                      onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
+                      className="flex items-center gap-3 px-5 py-3 rounded-2xl border-2 border-[#cbd5e1]/40 bg-white/80 backdrop-blur-md hover:border-[#e63946]/40 hover:shadow-xl transition-all min-w-[240px] justify-between group"
+                    >
+                      <span className="flex items-center gap-3">
+                        <Globe className="w-5 h-5 text-[#64748b] group-hover:text-[#e63946] transition-colors" />
+                        <span className="text-2xl">{selectedCountry.flag}</span>
+                        <span className="text-base font-bold text-[#0f172a]">{selectedCountry.name}</span>
+                      </span>
+                      <ChevronDown className={cn(
+                        "w-5 h-5 text-[#64748b] transition-transform duration-300",
+                        isCountryDropdownOpen && "rotate-180"
+                      )} />
+                    </button>
+                    
+                    {/* Dropdown menu with Search */}
+                    {isCountryDropdownOpen && (
+                      <div className="absolute top-full mt-3 left-0 w-[320px] bg-white rounded-2xl border-2 border-[#cbd5e1]/40 shadow-2xl z-[9999] overflow-hidden">
+                        {/* Search Input */}
+                        <div className="p-3 border-b border-[#cbd5e1]/30 bg-slate-50/50">
+                          <div className="relative">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#94a3b8]" />
+                            <input
+                              type="text"
+                              placeholder="Search country..."
+                              value={searchQuery}
+                              onChange={(e) => setSearchQuery(e.target.value)}
+                              className="w-full pl-9 pr-4 py-2 bg-white rounded-xl border border-[#cbd5e1]/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#e63946]/20 focus:border-[#e63946]/40 transition-all"
+                              autoFocus
+                              onClick={(e) => e.stopPropagation()}
+                            />
+                          </div>
+                        </div>
+                        
+                        <div className="max-h-[300px] overflow-y-auto p-2 country-scrollbar">
+                          {filteredCountries.length > 0 ? (
+                            filteredCountries.map((country) => (
+                              <button
+                                key={country.code}
+                                onClick={() => handleCountrySelect(country)}
+                                className={cn(
+                                  "w-full flex items-center gap-4 px-4 py-3 rounded-xl text-left transition-all",
+                                  selectedCountry.code === country.code
+                                    ? "bg-[#e63946] text-white"
+                                    : "hover:bg-[#f1f5f9] text-[#0f172a]"
+                                )}
+                              >
+                                <span className="text-2xl">{country.flag}</span>
+                                <div className="flex flex-col">
+                                  <span className="text-sm font-bold leading-none">{country.name}</span>
+                                  <span className={cn(
+                                    "text-[10px] uppercase tracking-widest mt-1 opacity-60",
+                                    selectedCountry.code === country.code ? "text-white" : "text-[#64748b]"
+                                  )}>{country.code}</span>
+                                </div>
+                                {selectedCountry.code === country.code && (
+                                  <CheckCircle className="w-5 h-5 ml-auto text-white" />
+                                )}
+                              </button>
+                            ))
+                          ) : (
+                            <div className="p-8 text-center">
+                              <Search className="w-8 h-8 text-[#cbd5e1] mx-auto mb-2" />
+                              <p className="text-sm text-[#94a3b8]">No countries found</p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* External source link */}
@@ -217,7 +389,7 @@ export function SignalDetailSection({
                 </Label>
                 <div className="flex items-baseline gap-2">
                   <span className="text-5xl md:text-6xl font-bold text-[#0f172a] tabular-nums tracking-tight">
-                    {signal.currentValue}
+                    {typeof currentVal === 'number' ? currentVal.toFixed(1) : currentVal}
                   </span>
                   <span className="text-2xl text-[#64748b] font-medium">
                     {signal.unit}
@@ -230,8 +402,8 @@ export function SignalDetailSection({
                 <div className={cn("flex items-center gap-2", trendColor)}>
                   <TrendIcon className="w-5 h-5" />
                   <span className="text-lg font-bold tabular-nums">
-                    {signal.changePercent > 0 ? "+" : ""}
-                    {formatPercent(signal.changePercent)}
+                    {currentChangePercent > 0 ? "+" : ""}
+                    {formatPercent(currentChangePercent)}
                   </span>
                 </div>
                 <span className="text-sm text-[#94a3b8]">vs previous period</span>
@@ -244,7 +416,7 @@ export function SignalDetailSection({
                     Previous
                   </Label>
                   <span className="text-lg font-medium text-[#475569] tabular-nums">
-                    {signal.previousValue} {signal.unit}
+                    {typeof prevVal === 'number' ? prevVal.toFixed(1) : prevVal} {signal.unit}
                   </span>
                 </div>
                 <div>
@@ -252,8 +424,8 @@ export function SignalDetailSection({
                     Change
                   </Label>
                   <span className={cn("text-lg font-medium tabular-nums", trendColor)}>
-                    {signal.change > 0 ? "+" : ""}
-                    {signal.change} {signal.unit}
+                    {currentChange > 0 ? "+" : ""}
+                    {typeof currentChange === 'number' ? currentChange.toFixed(1) : currentChange} {signal.unit}
                   </span>
                 </div>
               </div>
@@ -361,6 +533,7 @@ export function SignalDetailSection({
                     : activeView === "rate"
                     ? "Rate of Change Over Time"
                     : "Deviation from Historical Mean"}
+                  {isCountryEnabled && ` — ${selectedCountry.name}`}
                 </h3>
                 <p className="text-sm text-[#64748b] mt-1">
                   {activeView === "indexed"
@@ -372,10 +545,18 @@ export function SignalDetailSection({
               </div>
 
               {/* Chart */}
-              <div className="h-56 md:h-72 bg-[#f8fafc] rounded-xl p-4 border border-[#e2e8f0]">
+              <div className="h-56 md:h-72 bg-[#f8fafc] rounded-xl p-4 border border-[#e2e8f0] relative">
+                {isLoadingCountryData && (
+                  <div className="absolute inset-0 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
+                    <div className="flex items-center gap-3 text-[#64748b]">
+                      <Loader2 className="w-6 h-6 animate-spin" />
+                      <span className="text-sm font-medium">Loading {selectedCountry.name} data...</span>
+                    </div>
+                  </div>
+                )}
                 {activeView === "indexed" && (
                   <SparklineChart
-                    data={signal.sparklineHistory}
+                    data={chartData}
                     width={700}
                     height={240}
                     strokeWidth={2.5}
@@ -386,7 +567,7 @@ export function SignalDetailSection({
                 )}
                 {activeView === "rate" && (
                   <RateOfChangeChart
-                    data={signal.sparklineHistory}
+                    data={chartData}
                     width={700}
                     height={240}
                     color={chartColor}
@@ -395,7 +576,7 @@ export function SignalDetailSection({
                 )}
                 {activeView === "deviation" && (
                   <DeviationChart
-                    data={signal.sparklineHistory}
+                    data={chartData}
                     baseline={baseline}
                     width={700}
                     height={240}
